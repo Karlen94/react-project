@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 class Name extends Component {
     render() {
+        const { value } = this.props;
         return (
-            <p>Product name: {this.props.name}</p>
+            <p>Product name: {value}</p>
         )
     }
 }

@@ -3,16 +3,29 @@ import './App.css';
 import User from './User';
 import PageInformation from './Page_information';
 import SensMessage from './Get_message';
-import Product from './Product';
+import Product from './homework_7/Product';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <User name='Karlen' surname='Karapetyan' />
+        <div>
+          1:<h3>This is an example of advertising</h3>
+          <Product
+            name='Mercedes S-Class W223 '
+            price={100000}
+            description='Germany - Sindelfingen' />
 
-        <Product name='Mercedes S-Class W223' price='It costs from £89,105 for a standard-wheelbase version' description='Germany - Sindelfingen' />
+        </div>
 
+        <div>
+          2:<h3>This is an example of advertising</h3>
+          <Product
+            name='Mercedes S-Class W223'
+            price={108708}
+            description='Germany - Sindelfingen' />
+        </div>
 
         <img src={logo} className="App-logo" alt="logo" />
         <PageInformation />
