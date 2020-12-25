@@ -1,15 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
-import User from './User';
-import PageInformation from './Page_information';
-import SensMessage from './Get_message';
-import Product from './homework_7/Product';
+// import User from './User';
+// import PageInformation from './Page_information';
+// import SensMessage from './Get_message';
+// import Product from './homework_7/Product';
+import ToDo from './homework_8/ToDoList';
+
+
 
 function App() {
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <User name='Karlen' surname='Karapetyan' />
+
+
+        <ToDo />
+
+
+
+        {/* <User name='Karlen' surname='Karapetyan' />
         <div>
           1:<h3>This is an example of advertising</h3>
           <Product
@@ -26,13 +37,13 @@ function App() {
             price={108708}
             description='Germany - Sindelfingen' />
         </div>
-
+ */}
         <img src={logo} className="App-logo" alt="logo" />
-        <PageInformation />
+        {/*<PageInformation />*/}
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <SensMessage />
+        {/*<SensMessage />*/}
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -41,6 +52,11 @@ function App() {
         >
           Learn React
         </a>
+
+
+
+
+
       </header>
     </div>
   );
