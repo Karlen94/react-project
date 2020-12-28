@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 // import User from './User';
 // import PageInformation from './Page_information';
 // import SensMessage from './Get_message';
 // import Product from './homework_7/Product';
-import ToDo from './homework_8/ToDoList';
+import ToDo from './components/ToDoList';
 
 
 
@@ -37,8 +37,8 @@ function App() {
             price={108708}
             description='Germany - Sindelfingen' />
         </div>
- */}
-        <img src={logo} className="App-logo" alt="logo" />
+
+        <img src={logo} className="App-logo" alt="logo" />*/}
         {/*<PageInformation />*/}
         <p>
           Edit <code>src/App.js</code> and save to reload.
