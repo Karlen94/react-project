@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from '../components/toDo.module.css';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class ToDo extends Component {
 
@@ -7,7 +8,7 @@ class ToDo extends Component {
     state = {
         tasks: [],
         inputValue: '',
-    }
+    };
 
 
     handleChange = (event) => {
@@ -52,8 +53,29 @@ class ToDo extends Component {
 
         const { tasks, inputValue } = this.state;
 
+        const taskComponents = tasks.map((elem, index) => {
+            return (<Col
+                key={index}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={2}
+            >
+                <div className={style.box}><input type="checkbox" onClick={this.toggleSelect} />
+                    <li>
+                        {elem}
+                    </li>
+                    <button onClick={() => { this.delete(index) }}>Delete</button>
+                </div>
+            </Col>
+            )
+
+        })
+
         return (
             <div className={style.toDo}>
+
                 <h1>To Do List</h1>
                 <input
                     value={inputValue}
@@ -63,22 +85,16 @@ class ToDo extends Component {
 
                 <button onClick={this.handleClick}>New Task</button>
 
-                <div>
-                    <ol>
-                        {tasks.map((elem, index) => {
-                            return <div key={index} className={style.box}>
-                                <li key={index}>
-                                    {elem} <input type="checkbox" onClick={this.toggleSelect} />
-                                    <button onClick={() => { this.delete(index) }}>Delete</button>
-                                </li>
 
-                            </div>
-
-                        })}
-
-                    </ol>
-
-                </div>
+                {/* <ol>
+                    {taskComponents}
+                </ol>
+               */}
+                <Container>
+                    <Row>
+                        {taskComponents}
+                    </Row>
+                </Container>
 
 
 

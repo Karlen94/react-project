@@ -1,9 +1,6 @@
 .toDo{
     background-color: rgb(246, 255, 167);
-    text-align: center;
-    border-color: black;
-    border-width: 1px;
-    border-style: dotted;
+   
     /* background-color: gray; */
 }
 
@@ -20,9 +17,7 @@
     width: 100px;
     height: 150px;
     margin-top: 10px;
-    border-color: black;
-    border-width: 1px;
-    border-style: solid;
+    border: solid  1px black;
 }
 
 .box>button {
