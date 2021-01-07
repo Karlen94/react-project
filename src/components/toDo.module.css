@@ -1,11 +1,10 @@
 .toDo{
     background-color: rgb(246, 255, 167);
-   
-    /* background-color: gray; */
+    text-align: center;
 }
 
 .toDo h1 {
-    color: rgb(5, 163, 255);
+    color: rgb(4, 66, 102);
 }
 
 .toDo>input,h1 {
@@ -14,12 +13,9 @@
 
 .box{
     background-color: rgb(134, 250, 215);
-    width: 100px;
+    /* width: 100px;
     height: 150px;
-    margin-top: 10px;
+    margin-top: 10px; */
     border: solid  1px black;
 }
 
-.box>button {
-    margin: 40px 0px 0px 0px
-}

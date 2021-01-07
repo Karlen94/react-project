@@ -62,7 +62,8 @@ class ToDo extends Component {
                 lg={3}
                 xl={2}
             >
-                <div className={style.box}><input type="checkbox" onClick={this.toggleSelect} />
+                <div className={style.box}>
+                    <input type="checkbox" onClick={this.toggleSelect} />
                     <li>
                         {elem}
                     </li>
