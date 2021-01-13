@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import style from '../toDo/toDo.module.css';
-import { Container, Row, Col, Card, Button, InputGroup, FormControl, FormCheck } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
 import idGenerator from '../../helpersFunctions/idGenerator';
 
 class ToDo extends Component {
@@ -9,6 +9,7 @@ class ToDo extends Component {
     state = {
         tasks: [],
         inputValue: '',
+        selectedTasks: new Set()
     };
 
 
@@ -48,9 +49,47 @@ class ToDo extends Component {
         });
     }
 
+    toggleTask = (taskId) => {
+        const selectedTasks = new Set(this.state.selectedTasks);
+        if (selectedTasks.has(taskId)) {
+            selectedTasks.delete(taskId);
+        } else {
+            selectedTasks.add(taskId);
+        }
+
+        this.setState({
+            selectedTasks
+        })
+    }
+
+    removeSelected = () => {
+        const { selectedTasks, tasks } = this.state;
+        const newTasks = tasks.filter((elem) => {
+            if (selectedTasks.has(elem._id)) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+
+        this.setState({
+            tasks: newTasks,
+            selectedTasks: new Set()
+        })
+
+    }
+
+    handleKeyDown = (event) => {
+        if(event.key === "Enter"){
+             this.handleClick();
+        }
+    }
+
+
+
     render() {
 
-        const { tasks, inputValue } = this.state;
+        const { tasks, inputValue, selectedTasks } = this.state;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -63,8 +102,12 @@ class ToDo extends Component {
             >
 
                 <Card className={style.task}>
-                    <FormCheck />
+
                     <Card.Body>
+                        <input
+                            type="checkbox"
+                            onChange={() => this.toggleTask(elem._id)}
+                        />
                         <Card.Title>{elem.title}</Card.Title>
                         <Card.Text>
                             Some quick example text
@@ -72,6 +115,7 @@ class ToDo extends Component {
                         <Button
                             variant="danger"
                             onClick={() => this.delete(elem._id)}
+                            disabled={!!selectedTasks.size}
                         >
                             Delete
                         </Button>
@@ -98,11 +142,14 @@ class ToDo extends Component {
                                     placeholder="Input tasks"
                                     value={inputValue}
                                     onChange={this.handleChange}
+                                    disabled={!!selectedTasks.size}
+                                    onKeyDown={this.handleKeyDown}
                                 />
                                 <InputGroup.Append>
                                     <Button
                                         variant="outline-primary"
                                         onClick={this.handleClick}
+                                        disabled={!!selectedTasks.size}
                                     >
                                         New Task
                                     </Button>
@@ -112,6 +159,16 @@ class ToDo extends Component {
                     </Row>
                     <Row>
                         {taskComponents}
+                    </Row>
+
+                    <Row className="justify-content-center">
+                        <Button
+                            variant="danger"
+                            onClick={this.removeSelected}
+                            disabled={!selectedTasks.size}
+                        >
+                            Delete tasks
+                        </Button>
                     </Row>
                 </Container>
 
