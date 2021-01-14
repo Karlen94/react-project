@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import style from '../toDo/toDo.module.css';
-import { Container, Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import style from './toDo.module.css';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import idGenerator from '../../helpersFunctions/idGenerator';
+import Task from '../Task/Task';
+import NewTask from '../NewTask/NewTask';
 
 class ToDo extends Component {
 
@@ -22,6 +24,7 @@ class ToDo extends Component {
 
     handleClick = () => {
         const inputValue = this.state.inputValue.trim();
+
         if (!inputValue) {
             return;
         }
@@ -80,8 +83,8 @@ class ToDo extends Component {
     }
 
     handleKeyDown = (event) => {
-        if(event.key === "Enter"){
-             this.handleClick();
+        if (event.key === "Enter") {
+            this.handleClick();
         }
     }
 
@@ -101,28 +104,12 @@ class ToDo extends Component {
                 xl={2}
             >
 
-                <Card className={style.task}>
-
-                    <Card.Body>
-                        <input
-                            type="checkbox"
-                            onChange={() => this.toggleTask(elem._id)}
-                        />
-                        <Card.Title>{elem.title}</Card.Title>
-                        <Card.Text>
-                            Some quick example text
-                        </Card.Text>
-                        <Button
-                            variant="danger"
-                            onClick={() => this.delete(elem._id)}
-                            disabled={!!selectedTasks.size}
-                        >
-                            Delete
-                        </Button>
-                    </Card.Body>
-                </Card>
-
-
+                <Task
+                    data={elem}
+                    onToggle={this.toggleTask}
+                    disabled={!!selectedTasks.size}
+                    onDelete={this.delete}
+                />
 
             </Col>
             )
@@ -134,27 +121,14 @@ class ToDo extends Component {
                 <Container>
                     <Row className="justify-content-center">
                         <Col xs={10}>
-                            <h1>To Do List</h1>
-
-
-                            <InputGroup className="mb-3">
-                                <FormControl
-                                    placeholder="Input tasks"
-                                    value={inputValue}
-                                    onChange={this.handleChange}
-                                    disabled={!!selectedTasks.size}
-                                    onKeyDown={this.handleKeyDown}
-                                />
-                                <InputGroup.Append>
-                                    <Button
-                                        variant="outline-primary"
-                                        onClick={this.handleClick}
-                                        disabled={!!selectedTasks.size}
-                                    >
-                                        New Task
-                                    </Button>
-                                </InputGroup.Append>
-                            </InputGroup>
+                            <h1 className={style.h1}>To Do List</h1>
+                            <NewTask
+                                value={inputValue}
+                                handleChange={this.handleChange}
+                                addTask={this.handleClick}
+                                disabled={!!selectedTasks.size}
+                                keyDown={this.handleKeyDown}
+                            />
                         </Col>
                     </Row>
                     <Row>
