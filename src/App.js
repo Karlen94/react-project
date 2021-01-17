@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 // import User from './User';
 // import PageInformation from './Page_information';
 // import SensMessage from './Get_message';
