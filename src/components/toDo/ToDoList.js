@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import style from './toDo.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import idGenerator from '../../helpersFunctions/idGenerator';
 import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 
@@ -10,34 +9,16 @@ class ToDo extends Component {
 
     state = {
         tasks: [],
-        inputValue: '',
         selectedTasks: new Set()
     };
 
 
-    handleChange = (event) => {
-        this.setState({
-            inputValue: event.target.value
 
-        })
-    }
 
-    handleClick = () => {
-        const inputValue = this.state.inputValue.trim();
-
-        if (!inputValue) {
-            return;
-        }
-
-        const newTask = {
-            _id: idGenerator(),
-            title: inputValue
-        };
-
+    handleClick = (newTask) => {
 
         this.setState({
-            tasks: [...this.state.tasks, newTask],
-            inputValue: ''
+            tasks: [...this.state.tasks, newTask]
         })
 
 
@@ -82,17 +63,12 @@ class ToDo extends Component {
 
     }
 
-    handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            this.handleClick();
-        }
-    }
 
 
 
     render() {
 
-        const { tasks, inputValue, selectedTasks } = this.state;
+        const { tasks, selectedTasks } = this.state;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -123,11 +99,8 @@ class ToDo extends Component {
                         <Col xs={10}>
                             <h1 className={style.h1}>To Do List</h1>
                             <NewTask
-                                value={inputValue}
-                                handleChange={this.handleChange}
-                                addTask={this.handleClick}
+                                onAdd={this.handleClick}
                                 disabled={!!selectedTasks.size}
-                                keyDown={this.handleKeyDown}
                             />
                         </Col>
                     </Row>

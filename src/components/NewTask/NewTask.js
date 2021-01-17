@@ -1,25 +1,67 @@
 import React, { Component } from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import idGenerator from '../../helpersFunctions/idGenerator';
 
 
 class NewTask extends Component {
 
-    render() {
+    state = {
+        title: '',
+        description: ''
+    }
 
-        const { addTask, disabled, keyDown, handleChange, value } = this.props;
+    handleChange = (event) => {
+        this.setState({
+            title: event.target.value
+
+        })
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            this.handleSubmit();
+        }
+    }
+
+    handleSubmit = () => {
+        const title = this.state.title.trim();
+        const description = this.state.description.trim();
+
+
+        if (!title) {
+            return;
+        }
+
+        const newTask = {
+            _id: idGenerator(),
+            title: title,
+            description: description
+        };
+
+        this.props.onAdd(newTask);
+        this.setState({
+            title: '',
+            description: ''
+        })
+    }
+
+    render() {
+        const { title, description } = this.state;
+        const { disabled } = this.props;
+
         return (
             <InputGroup className="mb-3">
                 <FormControl
-                    placeholder="Input tasks"
-                    value={value}
-                    onChange={handleChange}
+                    placeholder="Title"
+                    value={title}
+                    onChange={this.handleChange}
                     disabled={disabled}
-                    onKeyDown={keyDown}
+                    onKeyDown={this.handleKeyDown}
                 />
                 <InputGroup.Append>
                     <Button
                         variant="outline-primary"
-                        onClick={addTask}
+                        onClick={this.handleSubmit}
                         disabled={disabled}
                     >
                         New Task

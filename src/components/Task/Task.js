@@ -17,13 +17,13 @@ class Task extends Component {
     }
 
     render() {
+
         const elem = this.props.data;
         const { disabled, onDelete } = this.props;
         const { selected } = this.state;
 
         return (
             <Card className={`${styles.task} ${selected ? styles.selected : ""}`}>
-
                 <Card.Body>
                     <input
                         type="checkbox"
@@ -41,6 +41,7 @@ class Task extends Component {
                         Delete
                         </Button>
                 </Card.Body>
+
             </Card>
 
         )
