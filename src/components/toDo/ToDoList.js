@@ -9,7 +9,10 @@ import NewTask from '../NewTask/NewTask';
 class ToDo extends Component {
 
 
-    
+    state = {
+        tasks: [],
+        selectedTasks: new Set()
+    };
 
 
 
