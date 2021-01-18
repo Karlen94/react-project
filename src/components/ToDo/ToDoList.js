@@ -5,8 +5,9 @@ import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 
-class ToDo extends Component {
+// problem ToDo folder
 
+class ToDo extends Component {
 
     state = {
         tasks: [],
