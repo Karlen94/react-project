@@ -3,13 +3,15 @@ import style from './toDo.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
+import Confirm from '../Confirm';
 
 class ToDo extends Component {
 
 
     state = {
         tasks: [],
-        selectedTasks: new Set()
+        selectedTasks: new Set(),
+        showConfirm: false
     };
 
 
@@ -58,17 +60,23 @@ class ToDo extends Component {
 
         this.setState({
             tasks: newTasks,
-            selectedTasks: new Set()
+            selectedTasks: new Set(),
+            showConfirm: false
         })
 
     }
 
+    toggleConfirm = () => {
 
+        this.setState({
+            showConfirm: !this.state.showConfirm
+        })
+    }
 
 
     render() {
 
-        const { tasks, selectedTasks } = this.state;
+        const { tasks, selectedTasks, showConfirm } = this.state;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -111,7 +119,7 @@ class ToDo extends Component {
                     <Row className="justify-content-center">
                         <Button
                             variant="danger"
-                            onClick={this.removeSelected}
+                            onClick={this.toggleConfirm}
                             disabled={!selectedTasks.size}
                         >
                             Delete tasks
@@ -119,7 +127,13 @@ class ToDo extends Component {
                     </Row>
                 </Container>
 
-
+                {showConfirm &&
+                    <Confirm
+                        onClose={this.toggleConfirm}
+                        onConfirm={this.removeSelected}
+                        count={selectedTasks.size}
+                    />
+                }
 
             </div>
 
