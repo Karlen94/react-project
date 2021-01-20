@@ -74,6 +74,19 @@ class ToDo extends Component {
         })
     }
 
+    selectAll = () => {
+        const taskIds = this.state.tasks.map((task) => task._id);
+
+        this.setState({
+            selectedTasks: new Set(taskIds)
+        })
+    }
+
+    deSelectAll = () => {
+        this.setState({
+            selectedTasks: new Set()
+        })
+    }
 
     render() {
 
@@ -94,6 +107,7 @@ class ToDo extends Component {
                     onToggle={this.toggleTask}
                     disabled={!!selectedTasks.size}
                     onDelete={this.delete}
+                    selected={selectedTasks.has(elem._id)}
                 />
 
             </Col>
@@ -118,13 +132,32 @@ class ToDo extends Component {
                     </Row>
 
                     <Row className="justify-content-center">
-                        <Button
-                            variant="danger"
-                            onClick={this.toggleConfirm}
-                            disabled={!selectedTasks.size}
-                        >
-                            Delete tasks
+                        <Col>
+                            <Button
+                                variant="warning"
+                                onClick={this.selectAll}
+                            >
+                                Select All
                         </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="warning"
+                                onClick={this.deSelectAll}
+                            >
+                                Deselect tasks
+                    </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="danger"
+                                onClick={this.toggleConfirm}
+                                disabled={!selectedTasks.size}
+                            >
+                                Delete tasks
+                        </Button>
+                        </Col>
+
                     </Row>
                 </Container>
 

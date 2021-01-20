@@ -12,24 +12,18 @@ class Task extends Component {
     //     onDelete: PropTypes.func.isRequired,
     // };
 
-    state = {
-        selected: false
-    };
+
 
     handleChange = () => {
         const { data, onToggle } = this.props;
         onToggle(data._id);
 
-        this.setState({
-            selected: !this.state.selected
-        })
     }
 
     render() {
 
         const elem = this.props.data;
-        const { disabled, onDelete } = this.props;
-        const { selected } = this.state;
+        const { disabled, onDelete, selected } = this.props;
 
         return (
             <Card className={`${styles.task} ${selected ? styles.selected : ""}`}>
@@ -37,6 +31,7 @@ class Task extends Component {
                     <input
                         type="checkbox"
                         onChange={this.handleChange}
+                        checked={selected}
                     />
                     <Card.Title>{elem.title}</Card.Title>
                     <Card.Text>
@@ -64,6 +59,7 @@ Task.propTypes = {
     onToggle: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
     onDelete: PropTypes.func.isRequired,
+    selected: PropTypes.bool.isRequired,
 };
 
 export default Task;
