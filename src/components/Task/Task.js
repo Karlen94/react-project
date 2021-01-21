@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import styles from '../Task/taskStyle.module.css';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 class Task extends Component {
 
@@ -35,15 +37,27 @@ class Task extends Component {
                     />
                     <Card.Title>{elem.title}</Card.Title>
                     <Card.Text>
-                        Some quick example text
-                        </Card.Text>
+                        {elem.description}
+                    </Card.Text>
+
                     <Button
+                        className='m-1'
+                        variant="warning"
+                        disabled={disabled}
+                    >
+                        <FontAwesomeIcon icon={faEdit} />
+                    </Button>
+
+                    <Button
+                        className='m-1'
                         variant="danger"
                         onClick={() => onDelete(elem._id)}
                         disabled={disabled}
                     >
-                        Delete
-                        </Button>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                    </Button>
+
+
                 </Card.Body>
 
             </Card>

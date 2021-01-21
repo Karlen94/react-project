@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Modal, FormControl, Button } from 'react-bootstrap';
 import idGenerator from '../../helpersFunctions/idGenerator';
 import PropTypes from 'prop-types';
+import styles from '../NewTask/newTaskStyle.module.css'
+
 
 
 class NewTask extends Component {
@@ -12,9 +14,10 @@ class NewTask extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-            title: event.target.value
+        const { name, value } = event.target;
 
+        this.setState({
+            [name]: value
         })
     }
 
@@ -35,40 +38,67 @@ class NewTask extends Component {
 
         const newTask = {
             _id: idGenerator(),
-            title: title,
-            description: description
+            title,
+            description
         };
 
         this.props.onAdd(newTask);
-        this.setState({
-            title: '',
-            description: ''
-        })
+
     }
 
     render() {
-        const { title, description } = this.state;
-        const { disabled } = this.props;
+        const { onClose } = this.props;
 
         return (
-            <InputGroup className="mb-3">
-                <FormControl
-                    placeholder="Title"
-                    value={title}
-                    onChange={this.handleChange}
-                    disabled={disabled}
-                    onKeyDown={this.handleKeyDown}
-                />
-                <InputGroup.Append>
-                    <Button
-                        variant="outline-primary"
-                        onClick={this.handleSubmit}
-                        disabled={disabled}
-                    >
-                        New Task
-                    </Button>
-                </InputGroup.Append>
-            </InputGroup>
+            <>
+                <Modal
+                    show={true}
+                    onHide={onClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title
+                            id="contained-modal-title-vcenter"
+                            className={styles._modalTitle}
+                        >
+                            Add New Task
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <FormControl
+                            placeholder="Title"
+                            name='title'
+                            onChange={this.handleChange}
+                            onKeyPress={this.handleKeyDown}
+                            className='mb-3'
+                        />
+
+                        <FormControl
+                            placeholder="Description"
+                            name='description'
+                            as='textarea'
+                            rows={5}
+                            onChange={this.handleChange}
+                        />
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            onClick={this.handleSubmit}
+                            variant='success'
+                        >
+                            Add
+                        </Button>
+                        <Button
+                            onClick={onClose}
+                            variant='secondary'
+                        >
+                            Cancel</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
         )
     }
 
@@ -78,8 +108,8 @@ class NewTask extends Component {
 }
 
 NewTask.propTypes = {
-    disabled: PropTypes.bool.isRequired,
     onAdd: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
 export default NewTask;
