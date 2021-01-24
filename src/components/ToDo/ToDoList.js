@@ -159,6 +159,7 @@ class ToDo extends PureComponent {
 
                         <Col>
                             <Button
+                                xs={3}
                                 className={style.addNewTaskButton}
                                 variant='success'
                                 onClick={this.toggleNewTaskModal}
@@ -168,6 +169,7 @@ class ToDo extends PureComponent {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
                                 className={style.selectAll}
                                 variant="warning"
                                 onClick={this.selectAll}
@@ -178,6 +180,7 @@ class ToDo extends PureComponent {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
                                 className={style.deselectTask}
                                 variant="warning"
                                 onClick={this.deSelectAll}
@@ -188,6 +191,7 @@ class ToDo extends PureComponent {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
                                 className={style.deleteTask}
                                 variant="danger"
                                 onClick={this.toggleConfirm}
