@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Modal, FormControl, Button } from 'react-bootstrap';
 import idGenerator from '../../helpersFunctions/idGenerator';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import styles from '../NewTask/newTaskStyle.module.css'
 
 
 
-class NewTask extends Component {
+class NewTask extends PureComponent {
 
     state = {
         title: '',

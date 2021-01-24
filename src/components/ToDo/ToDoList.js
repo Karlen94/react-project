@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import style from './toDo.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/Task';
@@ -8,7 +8,7 @@ import EditTaskModal from '../EditTaskModal';
 
 // problem ToDo folder
 
-class ToDo extends Component {
+class ToDo extends PureComponent {
 
     state = {
         tasks: [],
@@ -145,7 +145,7 @@ class ToDo extends Component {
         })
 
         return (
-            <div >
+            <div className={style.toDoDiv}>
                 <Container>
                     <Row className="justify-content-center">
                         <Col xs={10}>
