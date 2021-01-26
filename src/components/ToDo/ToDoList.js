@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
+import EditTaskModal from '../EditTaskModal';
 
 // problem ToDo folder
 
@@ -13,7 +14,8 @@ class ToDo extends Component {
         tasks: [],
         selectedTasks: new Set(),
         showConfirm: false,
-        openNewTaskModal: false
+        openNewTaskModal: false,
+        editTask: null,
     };
 
 
@@ -96,11 +98,27 @@ class ToDo extends Component {
         })
     }
 
+    handleEdit = (editTask) => {
+        this.setState({
+            editTask
+        })
+    }
+
+    handleSaveTask = (editTask) => {
+        const tasks = [...this.state.tasks];
+        const foundIndex = tasks.findIndex((task) => task._id === editTask._id);
+        tasks[foundIndex] = editTask;
+        this.setState({
+            tasks,
+            editTask: null
+        })
+
+    }
 
 
     render() {
 
-        const { tasks, selectedTasks, showConfirm, openNewTaskModal } = this.state;
+        const { tasks, selectedTasks, showConfirm, openNewTaskModal, editTask } = this.state;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -118,6 +136,7 @@ class ToDo extends Component {
                     disabled={!!selectedTasks.size}
                     onDelete={this.delete}
                     selected={selectedTasks.has(elem._id)}
+                    onEdit={this.handleEdit}
                 />
 
             </Col>
@@ -197,6 +216,13 @@ class ToDo extends Component {
                         onClose={this.toggleNewTaskModal}
                     />
                 }
+
+                {editTask &&
+                    <EditTaskModal
+                        data={editTask}
+                        onClose={() => this.handleEdit(null)}
+                        onSave={this.handleSaveTask}
+                    />}
             </div>
 
         )
