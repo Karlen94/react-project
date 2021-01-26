@@ -12,7 +12,8 @@ class ToDo extends Component {
     state = {
         tasks: [],
         selectedTasks: new Set(),
-        showConfirm: false
+        showConfirm: false,
+        openNewTaskModal: false
     };
 
 
@@ -21,7 +22,8 @@ class ToDo extends Component {
     handleClick = (newTask) => {
 
         this.setState({
-            tasks: [...this.state.tasks, newTask]
+            tasks: [...this.state.tasks, newTask],
+            openNewTaskModal: false
         })
 
 
@@ -74,10 +76,31 @@ class ToDo extends Component {
         })
     }
 
+    selectAll = () => {
+        const taskIds = this.state.tasks.map((task) => task._id);
+
+        this.setState({
+            selectedTasks: new Set(taskIds)
+        })
+    }
+
+    deSelectAll = () => {
+        this.setState({
+            selectedTasks: new Set()
+        })
+    }
+
+    toggleNewTaskModal = () => {
+        this.setState({
+            openNewTaskModal: !this.state.openNewTaskModal
+        })
+    }
+
+
 
     render() {
 
-        const { tasks, selectedTasks, showConfirm } = this.state;
+        const { tasks, selectedTasks, showConfirm, openNewTaskModal } = this.state;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -94,6 +117,7 @@ class ToDo extends Component {
                     onToggle={this.toggleTask}
                     disabled={!!selectedTasks.size}
                     onDelete={this.delete}
+                    selected={selectedTasks.has(elem._id)}
                 />
 
             </Col>
@@ -107,25 +131,56 @@ class ToDo extends Component {
                     <Row className="justify-content-center">
                         <Col xs={10}>
                             <h1 className={style.h1}>To Do List</h1>
-                            <NewTask
-                                onAdd={this.handleClick}
-                                disabled={!!selectedTasks.size}
-                            />
+
                         </Col>
                     </Row>
+
+
+                    <Row className="justify-content-center">
+
+                        <Col>
+                            <Button
+                                variant='success'
+                                onClick={this.toggleNewTaskModal}
+                            >
+                                +Add New Task
+                        </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="warning"
+                                onClick={this.selectAll}
+                                disabled={tasks.length === 0}
+                            >
+                                Select All
+                        </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="warning"
+                                onClick={this.deSelectAll}
+                                disabled={tasks.length === 0}
+                            >
+                                Deselect tasks
+                    </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                variant="danger"
+                                onClick={this.toggleConfirm}
+                                disabled={!selectedTasks.size}
+                            >
+                                Delete tasks
+                        </Button>
+                        </Col>
+
+                    </Row>
+
                     <Row>
                         {taskComponents}
                     </Row>
 
-                    <Row className="justify-content-center">
-                        <Button
-                            variant="danger"
-                            onClick={this.toggleConfirm}
-                            disabled={!selectedTasks.size}
-                        >
-                            Delete tasks
-                        </Button>
-                    </Row>
+
                 </Container>
 
                 {showConfirm &&
@@ -136,6 +191,12 @@ class ToDo extends Component {
                     />
                 }
 
+                {openNewTaskModal &&
+                    <NewTask
+                        onAdd={this.handleClick}
+                        onClose={this.toggleNewTaskModal}
+                    />
+                }
             </div>
 
         )

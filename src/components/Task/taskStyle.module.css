@@ -1,8 +1,8 @@
 .task {
     margin: 10px 0px;
-    background-image: url(../../assets/images/d814e9ba002ded1d738d3ea467e42e93--minimalist-planner-printable-list-template.jpg);
+    /* background-image: url(../../assets/images/d814e9ba002ded1d738d3ea467e42e93--minimalist-planner-printable-list-template.jpg); */
  }
 
  .selected {
-    border: 1px solid red;
+    border: 1px solid red !important;
   }
