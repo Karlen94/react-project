@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import styles from '../Task/taskStyle.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-class Task extends Component {
+class Task extends PureComponent {
 
     // static propTypes = {
     //     data: PropTypes.object.isRequired,
@@ -41,7 +41,7 @@ class Task extends Component {
                     </Card.Text>
 
                     <Button
-                        className='m-1'
+                        className={styles.buttonEditTask}
                         variant="warning"
                         disabled={disabled}
                         onClick={() => onEdit(elem)}
@@ -50,7 +50,7 @@ class Task extends Component {
                     </Button>
 
                     <Button
-                        className='m-1'
+                        className={styles.buttonDangerTask}
                         variant="danger"
                         onClick={() => onDelete(elem._id)}
                         disabled={disabled}

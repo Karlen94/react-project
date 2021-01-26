@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Modal, FormControl, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import styles from './NewTask/newTaskStyle.module.css'
 
 
 
-class EditTaskModal extends Component {
+class EditTaskModal extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {

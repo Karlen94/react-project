@@ -3,6 +3,26 @@
     color: #007bff;
 }
 
+.toDoDiv{
+    min-height: 100vh;
+}
+
+.deselectTask{
+    box-shadow: 5px 10px 20px #ffc107;
+}
+
+.addNewTaskButton{
+    box-shadow: 5px 10px 20px #28a745;
+}
+
+.selectAll{
+    box-shadow: 5px 10px 20px #ffc107;
+}
+
+.deleteTask{
+    box-shadow: 5px 10px 20px #dc3545;
+}
+
 
 
 

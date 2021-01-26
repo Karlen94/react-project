@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import style from './toDo.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/Task';
@@ -8,7 +8,7 @@ import EditTaskModal from '../EditTaskModal';
 
 // problem ToDo folder
 
-class ToDo extends Component {
+class ToDo extends PureComponent {
 
     state = {
         tasks: [],
@@ -145,7 +145,7 @@ class ToDo extends Component {
         })
 
         return (
-            <div >
+            <div className={style.toDoDiv}>
                 <Container>
                     <Row className="justify-content-center">
                         <Col xs={10}>
@@ -159,6 +159,8 @@ class ToDo extends Component {
 
                         <Col>
                             <Button
+                                xs={3}
+                                className={style.addNewTaskButton}
                                 variant='success'
                                 onClick={this.toggleNewTaskModal}
                             >
@@ -167,6 +169,8 @@ class ToDo extends Component {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
+                                className={style.selectAll}
                                 variant="warning"
                                 onClick={this.selectAll}
                                 disabled={tasks.length === 0}
@@ -176,6 +180,8 @@ class ToDo extends Component {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
+                                className={style.deselectTask}
                                 variant="warning"
                                 onClick={this.deSelectAll}
                                 disabled={tasks.length === 0}
@@ -185,6 +191,8 @@ class ToDo extends Component {
                         </Col>
                         <Col>
                             <Button
+                                xs={3}
+                                className={style.deleteTask}
                                 variant="danger"
                                 onClick={this.toggleConfirm}
                                 disabled={!selectedTasks.size}
