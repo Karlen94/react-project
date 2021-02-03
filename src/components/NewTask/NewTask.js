@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Modal, FormControl, Button } from 'react-bootstrap';
-import idGenerator from '../../helpersFunctions/idGenerator';
 import PropTypes from 'prop-types';
 import styles from '../NewTask/newTaskStyle.module.css'
 
@@ -37,7 +36,6 @@ class NewTask extends PureComponent {
         }
 
         const newTask = {
-            _id: idGenerator(),
             title,
             description
         };

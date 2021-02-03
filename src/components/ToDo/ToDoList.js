@@ -19,25 +19,94 @@ class ToDo extends PureComponent {
     };
 
 
+    componentDidMount() {
+        fetch('http://localhost:3001/task', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(async (response) => {
+                const res = await response.json();
 
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    } else {
+                        throw new Error('Big error!');
+                    }
+                }
+
+
+                this.setState({
+                    tasks: res
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     handleClick = (newTask) => {
-
-        this.setState({
-            tasks: [...this.state.tasks, newTask],
-            openNewTaskModal: false
+        fetch('http://localhost:3001/task', {
+            method: 'POST',
+            body: JSON.stringify(newTask),
+            headers: {
+                'Content-type': 'application/json'
+            }
         })
+            .then(async (response) => {
+                const res = await response.json();
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    } else {
+                        throw new Error('Big error!');
+                    }
+                }
+
+
+                this.setState({
+                    tasks: [...this.state.tasks, res],
+                    openNewTaskModal: false
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
 
 
     }
 
 
     delete = (id) => {
+        fetch(`http://localhost:3001/task/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(async (response) => {
+                const res = await response.json();
 
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    } else {
+                        throw new Error('Big error!');
+                    }
+                }
 
-        this.setState({
-            tasks: this.state.tasks.filter((task) => id !== task._id),
-        });
+                this.setState({
+                    tasks: this.state.tasks.filter((task) => id !== task._id),
+                });
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     toggleTask = (taskId) => {
