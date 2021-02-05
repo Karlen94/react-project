@@ -6,7 +6,6 @@ import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 import EditTaskModal from '../EditTaskModal';
 
-// problem ToDo folder
 
 class ToDo extends PureComponent {
 
@@ -124,19 +123,46 @@ class ToDo extends PureComponent {
 
     removeSelected = () => {
         const { selectedTasks, tasks } = this.state;
-        const newTasks = tasks.filter((elem) => {
-            if (selectedTasks.has(elem._id)) {
-                return false;
-            } else {
-                return true;
-            }
-        });
+        const body = {
+            tasks: [...selectedTasks]
+        }
 
-        this.setState({
-            tasks: newTasks,
-            selectedTasks: new Set(),
-            showConfirm: false
+        fetch(`http://localhost:3001/task`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
         })
+            .then(async (response) => {
+                const res = await response.json();
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    } else {
+                        throw new Error('Big error!');
+                    }
+                }
+
+                const newTasks = tasks.filter((elem) => {
+                    if (selectedTasks.has(elem._id)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+
+                this.setState({
+                    tasks: newTasks,
+                    selectedTasks: new Set(),
+                    showConfirm: false
+                })
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
     }
 
@@ -174,13 +200,39 @@ class ToDo extends PureComponent {
     }
 
     handleSaveTask = (editTask) => {
-        const tasks = [...this.state.tasks];
-        const foundIndex = tasks.findIndex((task) => task._id === editTask._id);
-        tasks[foundIndex] = editTask;
-        this.setState({
-            tasks,
-            editTask: null
+
+        fetch(`http://localhost:3001/task/${editTask._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(editTask)
         })
+            .then(async (response) => {
+                const res = await response.json();
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    } else {
+                        throw new Error('Big error!');
+                    }
+                }
+
+                const tasks = [...this.state.tasks];
+                const foundIndex = tasks.findIndex((task) => task._id === editTask._id);
+                tasks[foundIndex] = editTask;
+                this.setState({
+                    tasks,
+                    editTask: null
+                })
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+
 
     }
 

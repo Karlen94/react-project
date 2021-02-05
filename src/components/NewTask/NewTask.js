@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Modal, FormControl, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import styles from '../NewTask/newTaskStyle.module.css'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
