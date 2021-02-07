@@ -3,7 +3,8 @@ import { Card, Button } from 'react-bootstrap';
 import styles from '../Task/taskStyle.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { formatDate } from '../../helpersFunctions/utils';
 
 class Task extends PureComponent {
 
@@ -37,9 +38,11 @@ class Task extends PureComponent {
                     />
                     <Card.Title>{elem.title}</Card.Title>
                     <Card.Text>
-                        {elem.description}
+                        Description: {elem.description}
                     </Card.Text>
-
+                    <Card.Text>
+                        Date: {formatDate(elem.date)}
+                    </Card.Text>
                     <Button
                         className={styles.buttonEditTask}
                         variant="warning"

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import styles from '../NewTask/newTaskStyle.module.css'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { formatDate } from '../../helpersFunctions/utils';
+
 
 
 
@@ -11,7 +13,8 @@ class NewTask extends PureComponent {
 
     state = {
         title: '',
-        description: ''
+        description: '',
+        date: new Date()
     }
 
     handleChange = (event) => {
@@ -37,13 +40,23 @@ class NewTask extends PureComponent {
             return;
         }
 
+        const { date } = this.state;
+
         const newTask = {
             title,
-            description
+            description,
+            date: formatDate(date.toISOString())
         };
 
         this.props.onAdd(newTask);
 
+    }
+
+
+    handleChangeDate = (value) => {
+        this.setState({
+            date: value || new Date()
+        });
     }
 
     render() {
@@ -81,6 +94,12 @@ class NewTask extends PureComponent {
                             as='textarea'
                             rows={5}
                             onChange={this.handleChange}
+                        />
+
+                        <DatePicker
+                            minDate={new Date()}
+                            selected={this.state.date}
+                            onChange={this.handleChangeDate}
                         />
 
                     </Modal.Body>
