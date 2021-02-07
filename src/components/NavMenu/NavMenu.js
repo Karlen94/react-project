@@ -1,18 +1,39 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import styles from './navMenuStyle.module.css';
 
 
 export default function NavMenu() {
 
     return (
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
+
+                <NavLink
+                    to='/'
+                    activeClassName={styles.active}
+                    className={styles.homeLink}
+                    exact={true}
+                >
+                    Home
+                    </NavLink>
+                <NavLink
+                    to='/about'
+                    activeClassName={styles.active}
+                    className={styles.homeLink}
+                    exact={true}
+                >
+                    About us
+                    </NavLink>
+                <NavLink
+                    to='/contact'
+                    activeClassName={styles.active}
+                    className={styles.contactLink}
+                    exact={true}
+                >
+                    Contact us
+                    </NavLink>
             </Nav>
         </Navbar>
 

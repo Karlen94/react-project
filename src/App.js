@@ -10,6 +10,7 @@ import About from './components/pages/About/About';
 import Contact from './components/pages/Contact/Contact';
 import NotFound from './components/pages/NotFound/NotFound';
 import NavMenu from './components/NavMenu/NavMenu';
+import SingleTask from './components/pages/SingleTask/SingleTask';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 
@@ -20,8 +21,9 @@ function App() {
   return (
     <div className="App">
 
-      <NavMenu />
+
       <BrowserRouter>
+        <NavMenu />
         <Switch>
           <Route
             path='/'
@@ -41,6 +43,11 @@ function App() {
           <Route
             path='/contact'
             component={Contact}
+            exact={true}
+          />
+          <Route
+            path='/task'
+            component={SingleTask}
             exact={true}
           />
           <Route

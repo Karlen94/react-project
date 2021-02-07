@@ -97,6 +97,7 @@ class NewTask extends PureComponent {
                         />
 
                         <DatePicker
+                            className={styles.dateRow}
                             minDate={new Date()}
                             selected={this.state.date}
                             onChange={this.handleChangeDate}
