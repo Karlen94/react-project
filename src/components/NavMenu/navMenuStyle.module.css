@@ -1,0 +1,16 @@
+.active{
+    color: red;
+    font-weight: 800;
+}
+
+.homeLink{
+    margin: 0px 5px;
+}
+
+.aboutLink{
+    margin: 0px 5px;
+}
+
+.contactLink{
+    margin: 0px 5px;
+}
