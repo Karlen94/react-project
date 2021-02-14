@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component, createRef } from 'react';
 import { Modal, FormControl, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import styles from '../NewTask/newTaskStyle.module.css'
@@ -9,12 +9,21 @@ import { formatDate } from '../../helpersFunctions/utils';
 
 
 
-class NewTask extends PureComponent {
+class NewTask extends Component {
 
-    state = {
-        title: '',
-        description: '',
-        date: new Date()
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            date: new Date()
+        }
+
+        this.formControlRef = createRef();
+    }
+
+    componentDidMount() {
+        this.formControlRef.current.focus();
     }
 
     handleChange = (event) => {
@@ -86,6 +95,7 @@ class NewTask extends PureComponent {
                             onChange={this.handleChange}
                             onKeyPress={this.handleKeyDown}
                             className='mb-3'
+                            ref={this.formControlRef}
                         />
 
                         <FormControl
