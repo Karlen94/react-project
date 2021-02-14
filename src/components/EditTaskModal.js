@@ -98,6 +98,7 @@ class EditTaskModal extends PureComponent {
                         value={description}
                     />
                     <DatePicker
+                        className={styles.dateRow}
                         minDate={new Date()}
                         selected={this.state.date}
                         onChange={this.handleChangeDate}

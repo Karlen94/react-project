@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { formatDate } from '../../helpersFunctions/utils';
 import { Link } from 'react-router-dom';
+import { textTruncate } from '../../helpersFunctions/utils';
 
 class Task extends PureComponent {
 
@@ -37,11 +38,11 @@ class Task extends PureComponent {
                         onChange={this.handleChange}
                         checked={selected}
                     />
-                    <Link to='/task'>
-                        <Card.Title>{elem.title}</Card.Title>
+                    <Link to={`/task/${elem._id}`}>
+                        <Card.Title>{textTruncate(elem.title, 25)}</Card.Title>
                     </Link>
                     <Card.Text>
-                        Description: {elem.description}
+                        Description: {textTruncate(elem.description, 60)}
                     </Card.Text>
                     <Card.Text>
                         Date: {formatDate(elem.date)}
