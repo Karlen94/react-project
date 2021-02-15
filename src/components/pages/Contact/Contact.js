@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import styles from './contactStyle.module.css';
 
+const requiredErrorMessage = "Filed is required";
+
 export default function Contact() {
     const [values, setValues] = useState({
         name: '',
@@ -17,10 +19,11 @@ export default function Contact() {
 
     const handleChange = ({ target: { name, value } }) => {
 
+
         if (!value) {
             setErrors({
                 ...errors,
-                [name]: "Filed is required"
+                [name]: requiredErrorMessage
             })
         }
         else {
@@ -31,7 +34,7 @@ export default function Contact() {
         }
 
         if (name === 'email' && value) {
-            const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            const emailReg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
             if (!emailReg.test(value)) {
                 setErrors({
                     ...errors,
@@ -48,7 +51,50 @@ export default function Contact() {
 
 
     const handleSubmit = () => {
+        const errorsArr = Object.values(errors);
+        const errorsExist = !errorsArr.every(el => el === null);
+        const valuesArr = Object.values(values);
+        const valuesExist = !valuesArr.some(el => el === '');
 
+        if (valuesExist && !errorsExist) {
+
+            fetch('http://localhost:3001/form', {
+                method: 'POST',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+                .then(async (response) => {
+                    const res = await response.json();
+
+                    if (response.status >= 400 && response.status < 600) {
+                        if (res.error) {
+                            throw res.error;
+                        } else {
+                            throw new Error('Big error!');
+                        }
+                    }
+
+                    setValues({
+                        name: '',
+                        email: '',
+                        massage: ''
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            return;
+        }
+
+        if (!valuesExist && !errorsExist) {
+            setErrors({
+                name: requiredErrorMessage,
+                email: requiredErrorMessage,
+                massage: requiredErrorMessage
+            })
+        }
     }
 
     return (
@@ -60,6 +106,7 @@ export default function Contact() {
                             <h2 className='text-center'>Contact us</h2>
                             <Form.Group>
                                 <Form.Control
+                                    className={errors.name ? styles.invalid : ''}
                                     type="text"
                                     placeholder="Enter your name"
                                     name="name"
@@ -72,6 +119,7 @@ export default function Contact() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Control
+                                    className={errors.email ? styles.invalid : ''}
                                     type="email"
                                     placeholder="Enter email"
                                     name="email"
@@ -84,6 +132,7 @@ export default function Contact() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Control
+                                    className={errors.massage ? styles.invalid : ''}
                                     as="textarea"
                                     placeholder="Enter your massage"
                                     rows={5}

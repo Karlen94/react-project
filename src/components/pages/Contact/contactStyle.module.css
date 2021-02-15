@@ -1,3 +1,7 @@
 .buttonSubmit{
     width: 30%;
 }
+
+.invalid, .invalid:focus{
+    border: 1px solid red;
+}
