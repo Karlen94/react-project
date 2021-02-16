@@ -19,8 +19,10 @@ export default function Contact() {
 
     const handleChange = ({ target: { name, value } }) => {
 
+        const valueTrim = value.trim();
 
-        if (!value) {
+
+        if (!valueTrim) {
             setErrors({
                 ...errors,
                 [name]: requiredErrorMessage
@@ -33,9 +35,11 @@ export default function Contact() {
             })
         }
 
+
         if (name === 'email' && value) {
             const emailReg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-            if (!emailReg.test(value)) {
+
+            if (!emailReg.test(valueTrim)) {
                 setErrors({
                     ...errors,
                     email: 'Invalid email'
@@ -98,7 +102,7 @@ export default function Contact() {
     }
 
     return (
-        <div>
+        <div className={styles.contactUs}>
             <Container>
                 <Row className='justify-content-center'>
                     <Col xs={7}>
