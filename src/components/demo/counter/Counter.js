@@ -3,11 +3,11 @@ import ChangeCount from './ChangeCount';
 import ShowCount from './ShowCount';
 
 function Counter() {
-    
+
 
     return (
         <div>
-            <ShowCount  />
+            <ShowCount />
             <ChangeCount />
 
         </div>

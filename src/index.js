@@ -2,23 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import Counter from './components/demo/Counter';
+import Counter from './components/demo/counter/Counter';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 // import reportWebVitals from './reportWebVitals';
 
 function reducer(state = { count: 0 }, action) {
-  if (action.type === 'CHANGE_COUNT') {
-    return {
-      ...state,
-      count: state.count + 1
+  switch (action.type) {
+    case 'INCREMENT': {
+      return {
+        ...state,
+        count: state.count + 1
+      };
     }
-  }
-  if (action.type === 'SEND_MASSAGE') {
-    return {
-      ...state,
-      massage: action.massage
+    case 'DECREMENT': {
+      return {
+        ...state,
+        count: state.count - 1
+      };
     }
+    default: return state;
   }
 
   return state;
