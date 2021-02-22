@@ -1,39 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
-import Counter from './components/demo/counter/Counter';
+import App from './App';
+// import Counter from './components/demo/counter/Counter';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { store } from './store/store'
 // import reportWebVitals from './reportWebVitals';
 
-function reducer(state = { count: 0 }, action) {
-  switch (action.type) {
-    case 'INCREMENT': {
-      return {
-        ...state,
-        count: state.count + 1
-      };
-    }
-    case 'DECREMENT': {
-      return {
-        ...state,
-        count: state.count - 1
-      };
-    }
-    default: return state;
-  }
 
-  return state;
-
-}
-
-const store = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Counter />
+      <App />
     </Provider>
 
   </React.StrictMode>,
