@@ -1,5 +1,6 @@
-const deafultState = { 
-    tasks: []
+const deafultState = {
+    tasks: [],
+    addTaskSuccess: false
 };
 
 export default function reducer(state = deafultState, action) {
@@ -20,6 +21,22 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 tasks: action.tasks
+            };
+        }
+        case 'ADD_TASK': {
+            const tasks = [...state.tasks, action.task];
+
+            return {
+                ...state,
+                tasks,
+                addTaskSuccess: true
+            };
+        }
+        case 'ADDING_TASK': {
+
+            return {
+                ...state,
+                addTaskSuccess: false
             };
         }
         default: return state;

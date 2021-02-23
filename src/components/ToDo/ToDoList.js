@@ -6,7 +6,7 @@ import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 import EditTaskModal from '../EditTaskModal';
 import { connect } from 'react-redux';
-import request from '../../helpersFunctions/request';
+import { getTasks } from '../../store/actions';
 
 class ToDo extends PureComponent {
 
@@ -26,38 +26,14 @@ class ToDo extends PureComponent {
 
     }
 
-    handleClick = (newTask) => {
-        fetch('http://localhost:3001/task', {
-            method: 'POST',
-            body: JSON.stringify(newTask),
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-
-                this.setState({
-                    tasks: [...this.state.tasks, res],
-                    openNewTaskModal: false
-                })
+    componentDidUpdate(prevProps) {
+        if (!prevProps.addTaskSuccess && this.props.addTaskSuccess) {
+            this.setState({
+                openNewTaskModal: false
             })
-            .catch((error) => {
-                console.log(error);
-            })
-
-
-
+        }
     }
+
 
 
     delete = (id) => {
@@ -322,7 +298,6 @@ class ToDo extends PureComponent {
 
                 {openNewTaskModal &&
                     <NewTask
-                        onAdd={this.handleClick}
                         onClose={this.toggleNewTaskModal}
                     />
                 }
@@ -341,7 +316,8 @@ class ToDo extends PureComponent {
 
 const mapStateToProps = (state) => {
     return {
-        tasks: state.tasks
+        tasks: state.tasks,
+        addTaskSuccess: state.addTaskSuccess
     }
 };
 
@@ -358,15 +334,7 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = {
-    getTasks: () => {
-        return (dispatch) => {
-            request('http://localhost:3001/task')
-                .then((tasks) => {
-                    dispatch({ type: 'GET_TASKS', tasks: tasks })
-                })
-        }
-
-    }
+    getTasks
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDo);
