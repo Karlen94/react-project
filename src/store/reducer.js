@@ -1,6 +1,7 @@
 const deafultState = {
     tasks: [],
-    addTaskSuccess: false
+    addTaskSuccess: false,
+    deleteTasksSuccess: false
 };
 
 export default function reducer(state = deafultState, action) {
@@ -39,6 +40,35 @@ export default function reducer(state = deafultState, action) {
                 addTaskSuccess: false
             };
         }
+        case 'DELETE_TASK': {
+
+            return {
+                ...state,
+                tasks: state.tasks.filter((task) => action.taskId !== task._id)
+            };
+        }
+        case 'DELETE_TASKS': {
+            const newTasks = state.tasks.filter((elem) => {
+                if (action.taskIds.has(elem._id)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            return {
+                ...state,
+                tasks: newTasks,
+                deleteTasksSuccess: true
+            };
+        }
+        // case 'DELETING_TASK': {
+
+        //     return {
+        //         ...state,
+        //         deleteTasksSuccess: true
+        //     };
+        // }
         default: return state;
     }
 
