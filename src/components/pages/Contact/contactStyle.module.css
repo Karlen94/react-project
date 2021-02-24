@@ -1,0 +1,11 @@
+.buttonSubmit{
+    width: 30%;
+}
+
+.invalid, .invalid:focus{
+    border: 1px solid red;
+}
+
+.contactUs{
+    min-height: 100vh;
+}
