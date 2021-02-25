@@ -39,6 +39,12 @@ class ToDo extends PureComponent {
             });
             return;
         }
+        if (!prevProps.editTaskSuccess && this.props.editTaskSuccess) {
+            this.setState({
+                editTask: null
+            });
+            return;
+        }
     }
 
 
@@ -247,7 +253,7 @@ class ToDo extends PureComponent {
                     <EditTaskModal
                         data={editTask}
                         onClose={() => this.handleEdit(null)}
-                        onSave={this.handleSaveTask}
+                    // onSave={this.handleSaveTask}
                     />}
             </div>
 
@@ -259,7 +265,8 @@ const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,
         addTaskSuccess: state.addTaskSuccess,
-        deleteTasksSuccess: state.deleteTasksSuccess
+        deleteTasksSuccess: state.deleteTasksSuccess,
+        editTaskSuccess: state.editTaskSuccess
     }
 };
 

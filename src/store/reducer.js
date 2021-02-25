@@ -1,7 +1,8 @@
 const deafultState = {
     tasks: [],
     addTaskSuccess: false,
-    deleteTasksSuccess: false
+    deleteTasksSuccess: false,
+    editTaskSuccess: false
 };
 
 export default function reducer(state = deafultState, action) {
@@ -60,6 +61,17 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks: newTasks,
                 deleteTasksSuccess: true
+            };
+        }
+        case 'EDIT_TASK': {
+            const tasks = [...state.tasks];
+            const foundIndex = tasks.findIndex((task) => task._id === action.editedTask._id);
+            tasks[foundIndex] = action.editedTask;
+
+            return {
+                ...state,
+                tasks,
+                editTaskSuccess: true
             };
         }
         // case 'DELETING_TASK': {

@@ -42,3 +42,14 @@ export function deleteTasks(taskIds) {
             })
     }
 }
+
+export function editTask(data) {
+
+
+    return function (dispatch) {
+        request(`http://localhost:3001/task/${data._id}`, 'PUT', data)
+            .then((editedTask) => {
+                dispatch({ type: 'EDIT_TASK', editedTask });
+            })
+    }
+}
