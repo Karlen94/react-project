@@ -25,6 +25,14 @@ export default function reducer(state = deafultState, action) {
                 tasks: action.tasks
             };
         }
+        case 'PENDING': {
+            return {
+                ...state,
+                addTaskSuccess: false,
+                deleteTasksSuccess: false,
+                editTaskSuccess: false
+            };
+        }
         case 'ADD_TASK': {
             const tasks = [...state.tasks, action.task];
 
@@ -32,13 +40,6 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks,
                 addTaskSuccess: true
-            };
-        }
-        case 'ADDING_TASK': {
-
-            return {
-                ...state,
-                addTaskSuccess: false
             };
         }
         case 'DELETE_TASK': {
