@@ -5,7 +5,9 @@ const deafultState = {
     addTaskSuccess: false,
     deleteTasksSuccess: false,
     editTaskSuccess: false,
-    loading: false
+    loading: false,
+    successMessage: '',
+    errorMessage: ''
 };
 
 export default function reducer(state = deafultState, action) {
@@ -45,7 +47,8 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks,
                 loading: false,
-                addTaskSuccess: true
+                addTaskSuccess: true,
+                successMessage: 'Task created successfully!'
             };
         }
         case actionTypes.DELETE_TASK: {
@@ -53,7 +56,8 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                tasks: state.tasks.filter((task) => action.taskId !== task._id)
+                tasks: state.tasks.filter((task) => action.taskId !== task._id),
+                successMessage: 'Task deleted successfully!'
             };
         }
         case actionTypes.DELETE_TASKS: {
@@ -69,7 +73,8 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks: newTasks,
                 loading: false,
-                deleteTasksSuccess: true
+                deleteTasksSuccess: true,
+                successMessage: 'Tasks deleted successfully!'
             };
         }
         case actionTypes.EDIT_TASK: {
@@ -81,7 +86,8 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks,
                 loading: false,
-                editTaskSuccess: true
+                editTaskSuccess: true,
+                successMessage: 'Task edited successfully!'
             };
         }
         // case 'DELETING_TASK': {

@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
 // import User from './User';
 // import PageInformation from './Page_information';
 // import SensMessage from './Get_message';
@@ -14,8 +15,26 @@ import SingleTask from './components/pages/SingleTask/SingleTask';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Spinner from './components/Spinner/Spinner';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App({ loading }) {
+function App({ loading, successMessage }) {
+
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+
+  }, [successMessage])
+
 
 
   return (
@@ -60,14 +79,15 @@ function App({ loading }) {
         </Switch>
       </BrowserRouter>
       {loading && <Spinner />}
-
+      <ToastContainer />
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.loading
+    loading: state.loading,
+    successMessage: state.successMessage
   }
 };
 
