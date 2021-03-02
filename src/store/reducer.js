@@ -2,33 +2,31 @@ import * as actionTypes from './actionTypes';
 
 const deafultState = {
     tasks: [],
+    task: null,
     addTaskSuccess: false,
     deleteTasksSuccess: false,
+    editTasksSuccess: false,
     editTaskSuccess: false,
     loading: false,
-    successMessage: '',
-    errorMessage: ''
+    successMessage: null,
+    errorMessage: null
 };
 
 export default function reducer(state = deafultState, action) {
     switch (action.type) {
-        case 'INCREMENT': {
-            return {
-                ...state,
-                count: state.count + 1
-            };
-        }
-        case 'DECREMENT': {
-            return {
-                ...state,
-                count: state.count - 1
-            };
-        }
+
         case actionTypes.GET_TASKS: {
             return {
                 ...state,
                 loading: false,
                 tasks: action.tasks
+            };
+        }
+        case actionTypes.GET_TASK: {
+            return {
+                ...state,
+                loading: false,
+                task: action.task
             };
         }
         case actionTypes.PENDING: {
@@ -37,7 +35,16 @@ export default function reducer(state = deafultState, action) {
                 loading: true,
                 addTaskSuccess: false,
                 deleteTasksSuccess: false,
-                editTaskSuccess: false
+                editTaskSuccess: false,
+                successMessage: null,
+                errorMessage: null
+            };
+        }
+        case actionTypes.ERROR: {
+            return {
+                ...state,
+                loading: false,
+                errorMessage: action.error
             };
         }
         case actionTypes.ADD_TASK: {
@@ -78,6 +85,16 @@ export default function reducer(state = deafultState, action) {
             };
         }
         case actionTypes.EDIT_TASK: {
+            if (action.from === 'single') {
+                return {
+                    ...state,
+                    task: action.editedTask,
+                    loading: false,
+                    editTaskSuccess: true,
+                    successMessage: 'Task edited successfully!'
+                };
+            }
+
             const tasks = [...state.tasks];
             const foundIndex = tasks.findIndex((task) => task._id === action.editedTask._id);
             tasks[foundIndex] = action.editedTask;
@@ -86,17 +103,10 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 tasks,
                 loading: false,
-                editTaskSuccess: true,
+                editTasksSuccess: true,
                 successMessage: 'Task edited successfully!'
             };
         }
-        // case 'DELETING_TASK': {
-
-        //     return {
-        //         ...state,
-        //         deleteTasksSuccess: true
-        //     };
-        // }
         default: return state;
     }
 

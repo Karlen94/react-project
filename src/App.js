@@ -1,10 +1,5 @@
-// import logo from './logo.svg';
 import './App.css';
 import React, { useEffect } from 'react';
-// import User from './User';
-// import PageInformation from './Page_information';
-// import SensMessage from './Get_message';
-// import Product from './homework_7/Product';
 import ToDo from './components/ToDo/ToDoList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import About from './components/pages/About/About';
@@ -18,7 +13,7 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function App({ loading, successMessage }) {
+function App({ loading, successMessage, errorMessage }) {
 
 
   useEffect(() => {
@@ -33,7 +28,18 @@ function App({ loading, successMessage }) {
       });
     }
 
-  }, [successMessage])
+    if (errorMessage) {
+      toast.error(errorMessage, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+
+  }, [successMessage, errorMessage])
 
 
 
@@ -87,7 +93,8 @@ function App({ loading, successMessage }) {
 const mapStateToProps = (state) => {
   return {
     loading: state.loading,
-    successMessage: state.successMessage
+    successMessage: state.successMessage,
+    errorMessage: state.errorMessage
   }
 };
 

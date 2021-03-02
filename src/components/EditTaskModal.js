@@ -47,14 +47,14 @@ class EditTaskModal extends Component {
             return;
         }
 
-
-
-        this.props.editTask({
+        const editedTask = {
             _id: this.state._id,
             title,
             description,
             date: formatDate(this.state.date.toISOString())
-        });
+        }
+
+        this.props.editTask(editedTask, this.props.from);
 
     }
 
@@ -140,7 +140,7 @@ EditTaskModal.propTypes = {
 };
 
 const mapDispatchToProps = {
-   editTask
+    editTask
 };
 
 export default connect(null, mapDispatchToProps)(EditTaskModal);
