@@ -5,12 +5,12 @@ import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 import EditTaskModal from '../EditTaskModal';
-
+import { connect } from 'react-redux';
+import { getTasks, deleteTask, deleteTasks } from '../../store/actions';
 
 class ToDo extends PureComponent {
 
     state = {
-        tasks: [],
         selectedTasks: new Set(),
         showConfirm: false,
         openNewTaskModal: false,
@@ -19,94 +19,35 @@ class ToDo extends PureComponent {
 
 
     componentDidMount() {
-        fetch('http://localhost:3001/task', {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
 
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-
-                this.setState({
-                    tasks: res
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-    handleClick = (newTask) => {
-        fetch('http://localhost:3001/task', {
-            method: 'POST',
-            body: JSON.stringify(newTask),
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-
-                this.setState({
-                    tasks: [...this.state.tasks, res],
-                    openNewTaskModal: false
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-
+        this.props.getTasks();
 
 
     }
 
-
-    delete = (id) => {
-        fetch(`http://localhost:3001/task/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-                this.setState({
-                    tasks: this.state.tasks.filter((task) => id !== task._id),
-                });
-
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+    componentDidUpdate(prevProps) {
+        if (!prevProps.addTaskSuccess && this.props.addTaskSuccess) {
+            this.setState({
+                openNewTaskModal: false
+            });
+            return;
+        }
+        if (!prevProps.deleteTasksSuccess && this.props.deleteTasksSuccess) {
+            this.setState({
+                selectedTasks: new Set(),
+                showConfirm: false
+            });
+            return;
+        }
+        if (!prevProps.editTaskSuccess && this.props.editTaskSuccess) {
+            this.setState({
+                editTask: null
+            });
+            return;
+        }
     }
+
+
 
     toggleTask = (taskId) => {
         const selectedTasks = new Set(this.state.selectedTasks);
@@ -122,47 +63,9 @@ class ToDo extends PureComponent {
     }
 
     removeSelected = () => {
-        const { selectedTasks, tasks } = this.state;
-        const body = {
-            tasks: [...selectedTasks]
-        }
+        const { selectedTasks } = this.state;
 
-        fetch(`http://localhost:3001/task`, {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-                const newTasks = tasks.filter((elem) => {
-                    if (selectedTasks.has(elem._id)) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                });
-
-                this.setState({
-                    tasks: newTasks,
-                    selectedTasks: new Set(),
-                    showConfirm: false
-                })
-
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        this.props.deleteTasks(selectedTasks);
 
     }
 
@@ -239,7 +142,8 @@ class ToDo extends PureComponent {
 
     render() {
 
-        const { tasks, selectedTasks, showConfirm, openNewTaskModal, editTask } = this.state;
+        const { selectedTasks, showConfirm, openNewTaskModal, editTask } = this.state;
+        const { tasks } = this.props;
 
         const taskComponents = tasks.map((elem) => {
             return (<Col
@@ -255,7 +159,7 @@ class ToDo extends PureComponent {
                     data={elem}
                     onToggle={this.toggleTask}
                     disabled={!!selectedTasks.size}
-                    onDelete={this.delete}
+                    onDelete={this.props.deleteTask}
                     selected={selectedTasks.has(elem._id)}
                     onEdit={this.handleEdit}
                 />
@@ -285,7 +189,7 @@ class ToDo extends PureComponent {
                                 variant='success'
                                 onClick={this.toggleNewTaskModal}
                             >
-                                +Add New Task
+                                Add New Task
                         </Button>
                         </Col>
                         <Col>
@@ -341,7 +245,6 @@ class ToDo extends PureComponent {
 
                 {openNewTaskModal &&
                     <NewTask
-                        onAdd={this.handleClick}
                         onClose={this.toggleNewTaskModal}
                     />
                 }
@@ -350,7 +253,7 @@ class ToDo extends PureComponent {
                     <EditTaskModal
                         data={editTask}
                         onClose={() => this.handleEdit(null)}
-                        onSave={this.handleSaveTask}
+                    // onSave={this.handleSaveTask}
                     />}
             </div>
 
@@ -358,4 +261,31 @@ class ToDo extends PureComponent {
     }
 }
 
-export default ToDo;
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks,
+        addTaskSuccess: state.addTaskSuccess,
+        deleteTasksSuccess: state.deleteTasksSuccess,
+        editTaskSuccess: state.editTaskSuccess
+    }
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         getTasks: () => {
+//             request('http://localhost:3001/task')
+//                 .then((tasks) => {
+//                     dispatch({ type: 'GET_TASKS', tasks: tasks })
+//                 })
+//         }
+//     }
+// };
+
+
+const mapDispatchToProps = {
+    getTasks,
+    deleteTask,
+    deleteTasks
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDo);

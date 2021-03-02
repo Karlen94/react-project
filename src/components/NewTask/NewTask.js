@@ -5,7 +5,8 @@ import styles from '../NewTask/newTaskStyle.module.css'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatDate } from '../../helpersFunctions/utils';
-
+import { connect } from 'react-redux';
+import { addTask } from '../../store/actions';
 
 
 
@@ -57,7 +58,7 @@ class NewTask extends Component {
             date: formatDate(date.toISOString())
         };
 
-        this.props.onAdd(newTask);
+        this.props.addTask(newTask);
 
     }
 
@@ -137,9 +138,15 @@ class NewTask extends Component {
 
 }
 
+
+
+
 NewTask.propTypes = {
-    onAdd: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
 };
 
-export default NewTask;
+const mapDispatchToProps = {
+    addTask
+};
+
+export default connect(null, mapDispatchToProps)(NewTask);
