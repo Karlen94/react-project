@@ -59,6 +59,14 @@ export default function reducer(state = deafultState, action) {
             };
         }
         case actionTypes.DELETE_TASK: {
+            if (action.from === 'single') {
+                return {
+                    ...state,
+                    task: null,
+                    loading: false,
+                    successMessage: 'Task deleted successfully!'
+                };
+            }
 
             return {
                 ...state,

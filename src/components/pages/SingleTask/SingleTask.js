@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { formatDate } from '../../../helpersFunctions/utils';
 import EditTaskModal from '../../EditTaskModal';
-import { getTask } from '../../../store/actions';
+import { getTask, deleteTask } from '../../../store/actions';
 import { connect } from 'react-redux';
 
 class SingleTask extends Component {
@@ -28,31 +28,31 @@ class SingleTask extends Component {
     }
 
     deleteTask = () => {
-        const taskId = this.state.task._id;
+        const taskId = this.props.match.params.taskId;
+        this.props.deleteTask(taskId, 'single');
+        // fetch(`http://localhost:3001/task/${taskId}`, {
+        //     method: 'DELETE',
+        //     headers: {
+        //         'Content-type': 'application/json'
+        //     }
+        // })
+        //     .then(async (response) => {
+        //         const res = await response.json();
 
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                const res = await response.json();
+        //         if (response.status >= 400 && response.status < 600) {
+        //             if (res.error) {
+        //                 throw res.error;
+        //             } else {
+        //                 throw new Error('Big error!');
+        //             }
+        //         }
 
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
+        //         this.props.history.push('/');
 
-                this.props.history.push('/');
-
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
     }
 
 
@@ -137,7 +137,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    getTask
+    getTask,
+    deleteTask
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleTask);
