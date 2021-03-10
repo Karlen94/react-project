@@ -4,8 +4,10 @@ import { InputGroup, FormControl, Button, DropdownButton, Dropdown } from 'react
 import { textTruncate } from '../../helpersFunctions/utils';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { Container, Row, Col, Button } from 'react-bootstrap';
+import { formatDate } from '../../helpersFunctions/utils';
+import { getTasks } from '../../store/actions';
 import styles from './search.module.css';
+
 
 const statusOptions = [
     {
@@ -72,7 +74,7 @@ const dateOptions = [
     },
 ]
 
-function Search(props) {
+function Search({getTasks}) {
 
     const [status, setStatus] = useState({
         value: ''
@@ -96,7 +98,20 @@ function Search(props) {
     }
 
     const handleSubmit = () => {
-        console.log('search', search);
+        const params = {};
+
+        search && (params.search = search);
+        sort.value && (params.sort = sort.value);
+        status.value && (params.status = status.value);
+
+        for (let key in dates) {
+            const value = dates[key];
+            if (value) {
+                const date = formatDate(value.toISOString());
+                params[key] = date;
+            }
+        };
+        getTasks(params);
     }
 
     return (
@@ -153,8 +168,11 @@ function Search(props) {
             </InputGroup>
 
             {
-                dateOptions.map((option) => (
-                    <div className={styles.main}>
+                dateOptions.map((option, index) => (
+                    <div
+                        className={styles.main}
+                        key={index}
+                    >
                         <div className={styles.dateRow}>
                             <span>{option.label}</span>
                             <DatePicker
@@ -171,5 +189,7 @@ function Search(props) {
     )
 }
 
-
-export default connect()(Search);
+const mapDispatchToProps = {
+    getTasks
+};
+export default connect(null, mapDispatchToProps)(Search);
