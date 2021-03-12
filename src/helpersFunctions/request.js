@@ -22,7 +22,5 @@ export default function request(url, method = 'GET', body) {
 
             return res;
         })
-        .catch((error) => {
-            console.log(error);
-        })
+        
 }
