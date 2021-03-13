@@ -5,8 +5,8 @@ import thunk from 'redux-thunk';
 
 
 const params = [thunk];
-if (process.env.NODE_ENV = 'development') {
-    params.push(logger)
+if (process.env.NODE_ENV === "development") {
+    params.push(logger);
 }
 const middleware = applyMiddleware(...params);
 
