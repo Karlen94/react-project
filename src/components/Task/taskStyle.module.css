@@ -8,13 +8,18 @@
  .selected {
     border: 1px solid red !important;
   }
-
-  .buttonDangerTask{
-     float: right;
+ 
+.buttonEditTask{
+  margin: 1px;
   }
 
-  .buttonEditTask{
-    float: center;
-  } 
-
+  .buttonDangerTask{
+   margin: 1px;
+  }
+  .buttonCheckTask{
+   margin: 1px;
+  }
+  .buttonRedoTask{
+   margin: 1px;
+  }
   

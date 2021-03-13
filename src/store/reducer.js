@@ -93,13 +93,24 @@ export default function reducer(state = deafultState, action) {
             };
         }
         case actionTypes.EDIT_TASK: {
+            let successMessage = 'Task edited successfully!';
+            if (action.status) {
+                if (action.status === 'done') {
+                    successMessage = 'Congrats, you have completed the task!';
+                }
+                else {
+                    successMessage = 'The task is active now!';
+                }
+            }
+
+
             if (action.from === 'single') {
                 return {
                     ...state,
                     task: action.editedTask,
                     loading: false,
                     editTaskSuccess: true,
-                    successMessage: 'Task edited successfully!'
+                    successMessage: successMessage
                 };
             }
 
@@ -112,7 +123,7 @@ export default function reducer(state = deafultState, action) {
                 tasks,
                 loading: false,
                 editTasksSuccess: true,
-                successMessage: 'Task edited successfully!'
+                successMessage: successMessage
             };
         }
         default: return state;
