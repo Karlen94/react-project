@@ -67,6 +67,7 @@ class SingleTask extends Component {
     render() {
         const { openEditModal } = this.state;
         const { task, editTask } = this.props;
+        console.log(task);
         return (
             <div className='mt-5'>
                 <Container>
@@ -86,6 +87,9 @@ class SingleTask extends Component {
                                             </Card.Text>
                                             <Card.Text>
                                                 Status: {task.status}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                Created at: {formatDate(task.created_at)}
                                             </Card.Text>
                                             <Card.Text>
                                                 Date: {formatDate(task.date)}

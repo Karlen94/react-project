@@ -50,6 +50,9 @@ class Task extends PureComponent {
                         Status: {elem.status}
                     </Card.Text>
                     <Card.Text>
+                        Created at: {formatDate(elem.created_at)}
+                    </Card.Text>
+                    <Card.Text>
                         Date: {formatDate(elem.date)}
                     </Card.Text>
 
