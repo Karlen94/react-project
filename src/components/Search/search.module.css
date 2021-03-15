@@ -9,7 +9,7 @@ span{
 }
 
 .col{
-    display: inline-block;
+    float: left;
 }
 
 
