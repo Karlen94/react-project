@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faEdit, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { formatDate } from '../../../helpersFunctions/utils';
 import EditTaskModal from '../../EditTaskModal';
-import { getTask, deleteTask } from '../../../store/actions';
+import { getTask, deleteTask, editTask } from '../../../store/actions';
 import { connect } from 'react-redux';
+
 
 class SingleTask extends Component {
 
@@ -65,7 +66,7 @@ class SingleTask extends Component {
 
     render() {
         const { openEditModal } = this.state;
-        const { task } = this.props;
+        const { task, editTask } = this.props;
         return (
             <div className='mt-5'>
                 <Container>
@@ -84,8 +85,34 @@ class SingleTask extends Component {
                                                 Description: {task.description}
                                             </Card.Text>
                                             <Card.Text>
+                                                Status: {task.status}
+                                            </Card.Text>
+                                            <Card.Text>
                                                 Date: {formatDate(task.date)}
                                             </Card.Text>
+                                            {task.status === 'active' ?
+                                                <Button
+                                                    // className={styles.buttonCheckTask}
+                                                    variant="success"
+                                                    onClick={() => editTask({
+                                                        status: 'done',
+                                                        _id: task._id
+                                                    })}
+                                                >
+                                                    <FontAwesomeIcon icon={faCheck} />
+                                                </Button> :
+                                                <Button
+                                                    // className={styles.buttonRedoTask}
+                                                    variant="secondary"
+                                                    onClick={() => editTask({
+                                                        status: 'active',
+                                                        _id: task._id
+                                                    })}
+                                                >
+                                                    <FontAwesomeIcon icon={faRedo} />
+                                                </Button>
+
+                                            }
                                             <Button
                                                 className='m-1'
                                                 // className={styles.buttonEditTask}
@@ -132,13 +159,14 @@ class SingleTask extends Component {
 const mapStateToProps = (state) => {
     return {
         task: state.task,
-        editTaskSuccess: state.editTaskSuccess
+        editTaskSuccess: state.editTaskSuccess,
     }
 };
 
 const mapDispatchToProps = {
     getTask,
-    deleteTask
+    deleteTask,
+    editTask
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleTask);
