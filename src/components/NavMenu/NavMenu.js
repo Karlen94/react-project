@@ -34,6 +34,14 @@ export default function NavMenu() {
                 >
                     Contact us
                     </NavLink>
+                    <NavLink
+                    to='/login'
+                    activeClassName={styles.active}
+                    className={styles.loginLink}
+                    exact={true}
+                >
+                    Login
+                    </NavLink>
             </Nav>
         </Navbar>
 

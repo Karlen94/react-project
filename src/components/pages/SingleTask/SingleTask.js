@@ -67,7 +67,6 @@ class SingleTask extends Component {
     render() {
         const { openEditModal } = this.state;
         const { task, editTask } = this.props;
-        console.log(task);
         return (
             <div className='mt-5'>
                 <Container>
@@ -101,7 +100,7 @@ class SingleTask extends Component {
                                                     onClick={() => editTask({
                                                         status: 'done',
                                                         _id: task._id
-                                                    })}
+                                                    }, 'single')}
                                                 >
                                                     <FontAwesomeIcon icon={faCheck} />
                                                 </Button> :
@@ -111,7 +110,7 @@ class SingleTask extends Component {
                                                     onClick={() => editTask({
                                                         status: 'active',
                                                         _id: task._id
-                                                    })}
+                                                    }, 'single')}
                                                 >
                                                     <FontAwesomeIcon icon={faRedo} />
                                                 </Button>

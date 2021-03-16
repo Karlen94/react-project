@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import About from './components/pages/About/About';
 import Contact from './components/pages/Contact/Contact';
 import NotFound from './components/pages/NotFound/NotFound';
+import Login from './components/pages/Login/Login';
 import NavMenu from './components/NavMenu/NavMenu';
 import SingleTask from './components/pages/SingleTask/SingleTask';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -66,6 +67,11 @@ function App({ loading, successMessage, errorMessage }) {
             component={Contact}
             exact={true}
           />
+          <Route
+          path='/login'
+          component={Login}
+          exact={true}
+        />
           <Route
             path='/task/:taskId'
             component={SingleTask}
