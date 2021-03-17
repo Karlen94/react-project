@@ -4,7 +4,6 @@ import { InputGroup, FormControl, Button, DropdownButton, Dropdown } from 'react
 import { textTruncate } from '../../helpersFunctions/utils';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { formatDate } from '../../helpersFunctions/utils';
 import { getTasks } from '../../store/actions';
 import styles from './search.module.css';
 
@@ -74,7 +73,7 @@ const dateOptions = [
     },
 ]
 
-function Search({getTasks}) {
+function Search({ getTasks }) {
 
     const [status, setStatus] = useState({
         value: ''
@@ -107,7 +106,7 @@ function Search({getTasks}) {
         for (let key in dates) {
             const value = dates[key];
             if (value) {
-                const date = formatDate(value.toISOString());
+                const date = value.toLocaleDateString();
                 params[key] = date;
             }
         };

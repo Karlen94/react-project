@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from './registerStyle.module.css';
 import { Link } from 'react-router-dom';
 import { Col, Container, Form, Row, Button } from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {register} from '../../../store/actions'
+import { connect } from 'react-redux';
+import { register } from '../../../store/actions';
 
 
 
@@ -65,15 +65,15 @@ function Register(props) {
     };
 
     return (
-        <div>
+        <div className={styles.main}>
             <Container>
-                <Row>
-                    <Col>
+                <Row className="justify-content-center">
+                    <Col xs={12} sm={8} md={6}>
                         <Form>
                             <h3 className={styles.heading}>Register</h3>
                             <Form.Group>
                                 <Form.Control
-                                    className={errors.name? styles.invalid: ''}
+                                    className={errors.name ? styles.invalid : ''}
                                     type="text"
                                     name="name"
                                     placeholder="Enter your name"
@@ -88,7 +88,7 @@ function Register(props) {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Control
-                                    className={errors.surname? styles.invalid: ''}
+                                    className={errors.surname ? styles.invalid : ''}
                                     type="text"
                                     name="surname"
                                     placeholder="Enter your surname"

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import styles from './loginStyle.module.css';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { login } from '../../../store/actions';
 
 
 function Login(props) {
@@ -23,7 +24,7 @@ function Login(props) {
         });
 
         if (email && password) {
-            console.log(values);
+            props.login(values);
         }
     };
 
@@ -100,4 +101,8 @@ function Login(props) {
     )
 }
 
-export default Login;
+const mapDispatchToProps = {
+    login
+}
+
+export default connect(null, mapDispatchToProps)(Login);

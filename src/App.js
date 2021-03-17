@@ -25,7 +25,17 @@ const toastProps = {
   draggable: true,
 };
 
-function App({ loading, successMessage, errorMessage }) {
+// function AuthRoute({ path, component }) {
+//   return (
+//     <Route
+//       path={path}
+//       component={component} 
+//       exact={true}
+//     />
+//   )
+// }
+
+function App({ loading, successMessage, errorMessage, isAuthenticated }) {
 
 
   useEffect(() => {
@@ -50,11 +60,6 @@ function App({ loading, successMessage, errorMessage }) {
         <Switch>
           <Route
             path='/'
-            component={ToDo}
-            exact={true}
-          />
-          <Route
-            path='/home'
             component={ToDo}
             exact={true}
           />
@@ -102,7 +107,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.loading,
     successMessage: state.successMessage,
-    errorMessage: state.errorMessage
+    errorMessage: state.errorMessage,
+    isAuthenticated: state.isAuthenticated
   }
 };
 
