@@ -94,8 +94,8 @@ export function editTask(data, from) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task/${data._id}`, 'PUT', data)
             .then((editedTask) => {
-                dispatch({ 
-                    type: actionTypes.EDIT_TASK, 
+                dispatch({
+                    type: actionTypes.EDIT_TASK,
                     editedTask, from,
                     status: data.status
                 });
@@ -104,5 +104,22 @@ export function editTask(data, from) {
                 console.log(error);
                 dispatch({ type: actionTypes.ERROR, error: error.message })
             })
+    }
+}
+
+export function register(data) {
+    return function (dispatch) {
+        dispatch({ type: actionTypes.PENDING });
+        request(`${apiHost}/user`, 'POST', data)
+            .then((result) => {
+                console.log('result', result)
+
+            })
+            .catch((err) => {
+                dispatch({
+                    type: actionTypes.ERROR,
+                    error: err.message
+                });
+            });
     }
 }
