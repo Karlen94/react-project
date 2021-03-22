@@ -39,7 +39,7 @@ function NavMenu({ isAuthenticated }) {
                     </NavLink>
                 {
                     isAuthenticated ?
-                        <Button>Log out</Button> :
+                        <Button className={styles.logoutButton}>Log out</Button> :
                         <>
                             <NavLink
                                 to='/register'

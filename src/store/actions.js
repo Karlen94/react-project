@@ -2,6 +2,8 @@ import request from '../helpersFunctions/request';
 import * as actionTypes from './actionTypes';
 import { history } from '../helpersFunctions/history';
 import { saveToken } from '../helpersFunctions/auth';
+import requestWithoutToken from '../helpersFunctions/auth';
+
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
@@ -12,6 +14,7 @@ export function getTasks(params = {}) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task?${query}`)
             .then((tasks) => {
+                if (!tasks) return;
                 dispatch({ type: actionTypes.GET_TASKS, tasks: tasks })
             })
             .catch((error) => {
@@ -26,6 +29,7 @@ export function getTask(taskId) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task/${taskId}`)
             .then((task) => {
+                if (!task) return;
                 dispatch({ type: actionTypes.GET_TASK, task })
             })
             .catch((error) => {
@@ -41,6 +45,7 @@ export function addTask(newTask) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task`, 'POST', newTask)
             .then((task) => {
+                if (!task) return;
                 dispatch({ type: actionTypes.ADD_TASK, task });
             })
             .catch((error) => {
@@ -54,7 +59,8 @@ export function deleteTask(taskId, from) {
     return function (dispatch) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task/${taskId}`, 'DELETE')
-            .then(() => {
+            .then((res) => {
+                if (!res) return;
                 dispatch({ type: 'DELETE_TASK', taskId, from });
                 if (from === 'single') {
                     history.push('/');
@@ -76,7 +82,8 @@ export function deleteTasks(taskIds) {
         request(`${apiHost} /task`, 'PATCH', {
             tasks: [...taskIds]
         })
-            .then(() => {
+            .then((res) => {
+                if (!res) return;
                 dispatch({ type: 'DELETE_TASKS', taskIds });
             })
             .catch((error) => {
@@ -93,6 +100,7 @@ export function editTask(data, from) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task/${data._id}`, 'PUT', data)
             .then((editedTask) => {
+                if (!editedTask) return;
                 dispatch({
                     type: actionTypes.EDIT_TASK,
                     editedTask, from,
@@ -109,7 +117,7 @@ export function editTask(data, from) {
 export function register(data) {
     return function (dispatch) {
         dispatch({ type: actionTypes.PENDING });
-        request(`${apiHost}/user`, 'POST', data)
+        requestWithoutToken(`${apiHost}/user`, 'POST', data)
             .then(() => {
                 dispatch({
                     type: actionTypes.REGISTER_SUCCES
@@ -128,7 +136,7 @@ export function register(data) {
 export function login(data) {
     return function (dispatch) {
         dispatch({ type: actionTypes.PENDING });
-        request(`${apiHost}/user/sign-in`, 'POST', data)
+        requestWithoutToken(`${apiHost}/user/sign-in`, 'POST', data)
             .then((result) => {
                 saveToken(result);
 

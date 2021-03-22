@@ -22,3 +22,9 @@
 .registerLink{
     margin: 0px 5px;
 }
+.logoutButton{
+    position: absolute; 
+    top: 0px; 
+    right: 0;
+    margin: 2px;
+}

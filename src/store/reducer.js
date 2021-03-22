@@ -142,6 +142,14 @@ export default function reducer(state = deafultState, action) {
                 isAuthenticated: true
             };
         }
+        case actionTypes.LOGOUT: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false
+            };
+        }
+
         default: return state;
     }
 

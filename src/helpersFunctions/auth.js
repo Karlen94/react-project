@@ -1,4 +1,36 @@
 import decode from 'jwt-decode';
+import { store } from '../store/store';
+import { LOGOUT } from '../store/actionTypes';
+import { history } from './history';
+
+export default function requestWithoutToken(url, method = 'GET', body) {
+
+
+    const config = {
+        method: method,
+        headers: {
+            'Content-type': 'application/json'
+        }
+    };
+    if (body) {
+        config.body = JSON.stringify(body);
+    }
+    return fetch(url, config)
+        .then(async (response) => {
+            const res = await response.json();
+
+            if (response.status >= 400 && response.status < 600) {
+                if (res.error) {
+                    throw res.error;
+                } else {
+                    throw new Error('Big error!');
+                }
+            }
+
+            return res;
+        });
+
+}
 
 export const getToken = () => {
     const token = localStorage.getItem('token');
@@ -7,25 +39,24 @@ export const getToken = () => {
         const decoded = decode(parsed.jwt);
 
         if (decoded.exp - new Date().getTime() / 1000 > 60) {
-            return parsed.jwt
+            return Promise.resolve(parsed.jwt);
         }
         else {
             const apiHost = process.env.REACT_APP_API_HOST;
-            fetch(`${apiHost}/user/${decoded.userId}/token`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    refreshToken: parsed.refreshToken
-                }),
-                headers: {
-                    'Content-type': 'application/json',
-                }
+            return requestWithoutToken(`${apiHost}/user/${decoded.userId}/token`, 'PUT', {
+                refreshToken: parsed.refreshToken
             })
-                .then(res => res.json())
                 .then(token => {
                     saveToken(token);
                     return token.jwt;
                 })
+                .catch(() => {
+                    logout();
+                })
         }
+    }
+    else {
+        logout();
     }
 }
 
@@ -33,4 +64,12 @@ export function saveToken(token) {
     localStorage.setItem('token', JSON.stringify(token));
 }
 
-export const checkLoginStatus = () => !!localStorage.getItem('token');
+export function logout() {
+    localStorage.removeItem('token');
+    store.dispatch({ type: LOGOUT });
+    history.push('/login');
+}
+
+export function checkLoginStatus() {
+    return !!localStorage.getItem('token');
+}
