@@ -111,9 +111,32 @@ export function register(data) {
     return function (dispatch) {
         dispatch({ type: actionTypes.PENDING });
         request(`${apiHost}/user`, 'POST', data)
-            .then((result) => {
-                console.log('result', result)
+            .then(() => {
+                dispatch({
+                    type: actionTypes.REGISTER_SUCCES
+                });
+                history.push('/login');
+            })
+            .catch((err) => {
+                dispatch({
+                    type: actionTypes.ERROR,
+                    error: err.message
+                });
+            });
+    }
+}
 
+export function login(data) {
+    return function (dispatch) {
+        dispatch({ type: actionTypes.PENDING });
+        request(`${apiHost}/user/sign-in`, 'POST', data)
+            .then((result) => {
+                localStorage.setItem('token', JSON.stringify(result));
+                
+                dispatch({
+                    type: actionTypes.LOGIN_SUCCES,
+                });
+                history.push('/');
             })
             .catch((err) => {
                 dispatch({

@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import { checkLoginStatus } from '../helpersFunctions/storage';
 
 const deafultState = {
     tasks: [],
@@ -9,7 +10,8 @@ const deafultState = {
     editTaskSuccess: false,
     loading: false,
     successMessage: null,
-    errorMessage: null
+    errorMessage: null,
+    isAuthenticated: checkLoginStatus()
 };
 
 export default function reducer(state = deafultState, action) {
@@ -124,6 +126,20 @@ export default function reducer(state = deafultState, action) {
                 loading: false,
                 editTasksSuccess: true,
                 successMessage: successMessage
+            };
+        }
+        case actionTypes.REGISTER_SUCCES: {
+            return {
+                ...state,
+                loading: false,
+                successMessage: 'Congrats, you are a new user now!'
+            };
+        }
+        case actionTypes.LOGIN_SUCCES: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: true
             };
         }
         default: return state;

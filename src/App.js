@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { history } from './helpersFunctions/history';
+import  AuthRoute  from './components/pages/AuthRoute/AuthRoute';
 
 const toastProps = {
   position: "bottom-left",
@@ -25,7 +26,9 @@ const toastProps = {
   draggable: true,
 };
 
-function App({ loading, successMessage, errorMessage }) {
+
+
+function App({ loading, successMessage, errorMessage, isAuthenticated }) {
 
 
   useEffect(() => {
@@ -48,37 +51,32 @@ function App({ loading, successMessage, errorMessage }) {
       <Router history={history}>
         <NavMenu />
         <Switch>
-          <Route
+          <AuthRoute
             path='/'
             component={ToDo}
             exact={true}
           />
-          <Route
-            path='/home'
-            component={ToDo}
-            exact={true}
-          />
-          <Route
+          <AuthRoute
             path='/about'
             component={About}
             exact={true}
           />
-          <Route
+          <AuthRoute
             path='/contact'
             component={Contact}
             exact={true}
           />
-          <Route
+          <AuthRoute
             path='/login'
             component={Login}
             exact={true}
           />
-          <Route
+          <AuthRoute
             path='/register'
             component={Register}
             exact={true}
           />
-          <Route
+          <AuthRoute
             path='/task/:taskId'
             component={SingleTask}
             exact={true}
@@ -102,7 +100,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.loading,
     successMessage: state.successMessage,
-    errorMessage: state.errorMessage
+    errorMessage: state.errorMessage,
+    isAuthenticated: state.isAuthenticated
   }
 };
 
