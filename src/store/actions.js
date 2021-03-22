@@ -1,7 +1,7 @@
 import request from '../helpersFunctions/request';
 import * as actionTypes from './actionTypes';
 import { history } from '../helpersFunctions/history';
-
+import { saveToken } from '../helpersFunctions/auth';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
@@ -15,7 +15,6 @@ export function getTasks(params = {}) {
                 dispatch({ type: actionTypes.GET_TASKS, tasks: tasks })
             })
             .catch((error) => {
-                console.log(error);
                 dispatch({ type: actionTypes.ERROR, error: error.message })
             })
     }
@@ -131,8 +130,8 @@ export function login(data) {
         dispatch({ type: actionTypes.PENDING });
         request(`${apiHost}/user/sign-in`, 'POST', data)
             .then((result) => {
-                localStorage.setItem('token', JSON.stringify(result));
-                
+                saveToken(result);
+
                 dispatch({
                     type: actionTypes.LOGIN_SUCCES,
                 });

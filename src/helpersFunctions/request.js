@@ -1,8 +1,13 @@
+import { getToken } from './auth';
+
 export default function request(url, method = 'GET', body) {
+    const token = getToken();
+
     const config = {
         method: method,
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            "Authorization": `Bearer ${token}`
         }
     };
     if (body) {
@@ -21,6 +26,6 @@ export default function request(url, method = 'GET', body) {
             }
 
             return res;
-        })
-        
+        });
+
 }

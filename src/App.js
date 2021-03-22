@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { history } from './helpersFunctions/history';
-import  AuthRoute  from './components/pages/AuthRoute/AuthRoute';
+import AuthRoute from './components/pages/AuthRoute/AuthRoute';
 
 const toastProps = {
   position: "bottom-left",
@@ -28,7 +28,7 @@ const toastProps = {
 
 
 
-function App({ loading, successMessage, errorMessage, isAuthenticated }) {
+function App({ loading, successMessage, errorMessage }) {
 
 
   useEffect(() => {
@@ -54,14 +54,21 @@ function App({ loading, successMessage, errorMessage, isAuthenticated }) {
           <AuthRoute
             path='/'
             component={ToDo}
+            type='private'
             exact={true}
           />
           <AuthRoute
+            path='/home'
+            component={ToDo}
+            type='private'
+            exact={true}
+          />
+          <Route
             path='/about'
             component={About}
             exact={true}
           />
-          <AuthRoute
+          <Route
             path='/contact'
             component={Contact}
             exact={true}
@@ -69,16 +76,19 @@ function App({ loading, successMessage, errorMessage, isAuthenticated }) {
           <AuthRoute
             path='/login'
             component={Login}
+            type='public'
             exact={true}
           />
           <AuthRoute
             path='/register'
             component={Register}
+            type='public'
             exact={true}
           />
           <AuthRoute
             path='/task/:taskId'
             component={SingleTask}
+            type='private'
             exact={true}
           />
           <Route
@@ -100,8 +110,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.loading,
     successMessage: state.successMessage,
-    errorMessage: state.errorMessage,
-    isAuthenticated: state.isAuthenticated
+    errorMessage: state.errorMessage
   }
 };
 
