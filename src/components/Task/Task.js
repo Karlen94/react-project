@@ -101,9 +101,8 @@ class Task extends PureComponent {
                         disabled={disabled}
                     >
                         <FontAwesomeIcon icon={faTrashAlt} />
+
                     </Button>
-
-
                 </Card.Body>
 
             </Card>

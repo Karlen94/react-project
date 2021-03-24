@@ -119,12 +119,14 @@ function Search({ getTasks }) {
                 <FormControl
                     placeholder="Search"
                     onChange={(event) => setSearch(event.target.value)}
+                    className={styles.searchLine}
                 />
                 <DropdownButton
                     as={InputGroup.Prepend}
                     variant="outline-primary"
                     title={status.value ? status.label : 'Status'}
                     id="input-group-dropdown-1"
+                    className={styles.searchLine}
                 >
                     {
                         statusOptions.map((option, index) => (
@@ -132,6 +134,7 @@ function Search({ getTasks }) {
                                 key={index}
                                 active={status.value === option.value}
                                 onClick={() => setStatus(option)}
+                                className={styles.searchLine}
                             >
                                 {option.label}
                             </Dropdown.Item>))
@@ -143,6 +146,7 @@ function Search({ getTasks }) {
                     variant="outline-primary"
                     title={sort.value ? textTruncate(sort.label, 4) : 'Sort'}
                     id="input-group-dropdown-1"
+                    className={styles.searchLine}
                 >
                     {
                         sortOptions.map((option, index) => (
@@ -150,6 +154,7 @@ function Search({ getTasks }) {
                                 key={index}
                                 active={sort.value === option.value}
                                 onClick={() => setSort(option)}
+                                className={styles.searchLine}
                             >
                                 {option.label}
                             </Dropdown.Item>))
@@ -160,6 +165,7 @@ function Search({ getTasks }) {
                     <Button
                         variant="outline-primary"
                         onClick={handleSubmit}
+                        className={styles.searchLine}
                     >
                         Search
                     </Button>
@@ -172,12 +178,12 @@ function Search({ getTasks }) {
                         className={styles.main}
                         key={index}
                     >
-                        <div className={styles.dateRow}>
-                            <span>{option.label}</span>
+                        <div>
+                            <span>{option.label}</span><br />
                             <DatePicker
-                                className={styles.col}
                                 selected={dates[option.value]}
                                 onChange={(value) => handleChangeDate(value, option.value)}
+                                className={styles.datePickerLine}
                             />
                         </div>
                     </div>

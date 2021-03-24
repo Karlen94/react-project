@@ -79,7 +79,7 @@ class ToDo extends PureComponent {
     }
 
     selectAll = () => {
-        const taskIds = this.state.tasks.map((task) => task._id);
+        const taskIds = this.props.tasks.map((task) => task._id);
 
         this.setState({
             selectedTasks: new Set(taskIds)

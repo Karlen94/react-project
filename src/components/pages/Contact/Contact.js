@@ -101,6 +101,18 @@ export default function Contact() {
         }
     }
 
+    // const { sendFormSucces } = this.props;
+
+    // useEffect(() => {
+    //     if (sendFormSucces) {
+    //         setValues({
+    //             name: '',
+    //             email: '',
+    //             massage: ''
+    //         })
+    //     }
+    // }, [sendFormSucces]);
+
     return (
         <div className={styles.contactUs}>
             <Container>
