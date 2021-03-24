@@ -3,6 +3,7 @@ import { Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import styles from './navMenuStyle.module.css';
 import { connect } from 'react-redux';
+import { logout } from '../../helpersFunctions/auth';
 
 function NavMenu({ isAuthenticated }) {
 
@@ -39,7 +40,11 @@ function NavMenu({ isAuthenticated }) {
                     </NavLink>
                 {
                     isAuthenticated ?
-                        <Button className={styles.logoutButton}>Log out</Button> :
+                        <Button
+                            className={styles.logoutButton}
+                            onClick={logout}
+                        >Log out
+                        </Button> :
                         <>
                             <NavLink
                                 to='/register'
