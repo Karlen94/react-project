@@ -12,6 +12,8 @@ const deafultState = {
     successMessage: null,
     errorMessage: null,
     sendFormSucces: false,
+    name: '',
+    surname: '',
     isAuthenticated: checkLoginStatus()
 };
 
@@ -130,13 +132,17 @@ export default function reducer(state = deafultState, action) {
             };
         }
         case actionTypes.REGISTER_SUCCES: {
+            
             return {
                 ...state,
                 loading: false,
-                successMessage: 'Congrats, you are a new user now!'
+                successMessage: 'Congrats, you are a new user now!',
+                name: action.task.name,
+                surname: action.task.surname
             };
         }
         case actionTypes.LOGIN_SUCCES: {
+            console.log(state.name);
             return {
                 ...state,
                 loading: false,
@@ -155,6 +161,7 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 loading: false,
                 sendFormSucces: true,
+                successMessage: 'Form send!'
             };
         }
 

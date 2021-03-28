@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { contactForm } from '../../../store/actions';
@@ -10,13 +10,13 @@ function Contact(props) {
     const [values, setValues] = useState({
         name: '',
         email: '',
-        massage: ''
+        message: ''
     });
 
     const [errors, setErrors] = useState({
         name: null,
         email: null,
-        massage: null
+        message: null
     });
 
     const handleChange = ({ target: { name, value } }) => {
@@ -91,33 +91,33 @@ function Contact(props) {
             //     .catch((error) => {
             //         console.log(error);
             //     })
-            props.contactForm(values);
 
-            //     return;
+            props.contactForm(values);
+            return;
         }
 
         if (!valuesExist && !errorsExist) {
             setErrors({
                 name: requiredErrorMessage,
                 email: requiredErrorMessage,
-                massage: requiredErrorMessage
+                message: requiredErrorMessage
             })
         }
-        console.log(values);
+
 
     }
 
-    // const { sendFormSucces } = this.props;
+    const { sendFormSucces } = props;
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (sendFormSucces) {
             setValues({
                 name: '',
                 email: '',
-                massage: ''
+                message: ''
             })
         }
-    }, [sendFormSucces]);*/
+    }, [sendFormSucces]);
 
     return (
         <div className={styles.contactUs}>
@@ -158,12 +158,12 @@ function Contact(props) {
                                     as="textarea"
                                     placeholder="Enter your massage"
                                     rows={5}
-                                    name="massage"
-                                    value={values.massage}
+                                    name="message"
+                                    value={values.message}
                                     onChange={handleChange}
                                 />
                                 <Form.Text className="text-danger">
-                                    {errors.massage}
+                                    {errors.message}
                                 </Form.Text>
                             </Form.Group>
                             <div className="text-center">
@@ -186,9 +186,15 @@ function Contact(props) {
     );
 }
 
+const mapStateToProps = (state) => {
+    return {
+        sendFormSucces: state.sendFormSucces
+    }
+};
+
 const mapDispatchToProps = {
     contactForm
 };
 
-export default connect(null, mapDispatchToProps)(Contact);
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);
 

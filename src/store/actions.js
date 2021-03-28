@@ -160,9 +160,9 @@ export function contactForm(data) {
         requestWithoutToken(`${apiHost}/form`, 'POST', data)
             .then(() => {
                 dispatch({
-                    type: actionTypes.CONTACT
+                    type: actionTypes.CONTACT,
                 });
-                history.push('/contact');
+                // history.push('/contact');
             })
             .catch((err) => {
                 dispatch({

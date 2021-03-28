@@ -5,8 +5,8 @@ import styles from './navMenuStyle.module.css';
 import { connect } from 'react-redux';
 import { logout } from '../../helpersFunctions/auth';
 
-function NavMenu({ isAuthenticated }) {
-
+function NavMenu({ isAuthenticated, name, surname }) {
+    console.log(name, surname, );
     return (
         <Navbar bg="dark" variant="dark">
             <Nav className="mr-auto">
@@ -38,6 +38,13 @@ function NavMenu({ isAuthenticated }) {
                 >
                     Contact us
                     </NavLink>
+
+                {
+                    isAuthenticated ?
+                        <div>{name} {surname}</div> :
+                        <div></div>
+                }
+
                 {
                     isAuthenticated ?
                         <Button
@@ -74,7 +81,9 @@ function NavMenu({ isAuthenticated }) {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.isAuthenticated
+        isAuthenticated: state.isAuthenticated,
+        name: state.name,
+        surname: state.surname
     }
 };
 
