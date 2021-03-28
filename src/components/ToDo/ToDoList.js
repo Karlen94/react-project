@@ -258,7 +258,7 @@ class ToDo extends PureComponent {
                 {editTask &&
                     <EditTaskModal
                         data={editTask}
-                        onClose={() => this.handleEdit(null)}
+                        onClose={() => this.handleEdit()}
                     />}
             </div>
 

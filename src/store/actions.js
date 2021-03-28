@@ -153,3 +153,22 @@ export function login(data) {
             });
     }
 }
+
+export function contactForm(data) {
+    return function (dispatch) {
+        dispatch({ type: actionTypes.PENDING });
+        requestWithoutToken(`${apiHost}/form`, 'POST', data)
+            .then(() => {
+                dispatch({
+                    type: actionTypes.CONTACT
+                });
+                history.push('/contact');
+            })
+            .catch((err) => {
+                dispatch({
+                    type: actionTypes.ERROR,
+                    error: err.message
+                });
+            });
+    }
+}

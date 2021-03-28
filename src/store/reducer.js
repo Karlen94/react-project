@@ -11,6 +11,7 @@ const deafultState = {
     loading: false,
     successMessage: null,
     errorMessage: null,
+    sendFormSucces: false,
     isAuthenticated: checkLoginStatus()
 };
 
@@ -147,6 +148,13 @@ export default function reducer(state = deafultState, action) {
                 ...state,
                 loading: false,
                 isAuthenticated: false
+            };
+        }
+        case actionTypes.CONTACT: {
+            return {
+                ...state,
+                loading: false,
+                sendFormSucces: true,
             };
         }
 

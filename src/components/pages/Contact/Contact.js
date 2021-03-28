@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { contactForm } from '../../../store/actions';
 import styles from './contactStyle.module.css';
 
 const requiredErrorMessage = "Filed is required";
 
-export default function Contact() {
+function Contact(props) {
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -62,34 +64,36 @@ export default function Contact() {
 
         if (valuesExist && !errorsExist) {
 
-            fetch('http://localhost:3001/form', {
-                method: 'POST',
-                body: JSON.stringify(values),
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-                .then(async (response) => {
-                    const res = await response.json();
+            // fetch('http://localhost:3001/form', {
+            //     method: 'POST',
+            //     body: JSON.stringify(values),
+            //     headers: {
+            //         'Content-type': 'application/json'
+            //     }
+            // })
+            //     .then(async (response) => {
+            //         const res = await response.json();
 
-                    if (response.status >= 400 && response.status < 600) {
-                        if (res.error) {
-                            throw res.error;
-                        } else {
-                            throw new Error('Big error!');
-                        }
-                    }
+            //         if (response.status >= 400 && response.status < 600) {
+            //             if (res.error) {
+            //                 throw res.error;
+            //             } else {
+            //                 throw new Error('Big error!');
+            //             }
+            //         }
 
-                    setValues({
-                        name: '',
-                        email: '',
-                        massage: ''
-                    })
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-            return;
+            //         setValues({
+            //             name: '',
+            //             email: '',
+            //             massage: ''
+            //         })
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     })
+            props.contactForm(values);
+
+            //     return;
         }
 
         if (!valuesExist && !errorsExist) {
@@ -99,19 +103,21 @@ export default function Contact() {
                 massage: requiredErrorMessage
             })
         }
+        console.log(values);
+
     }
 
     // const { sendFormSucces } = this.props;
 
-    // useEffect(() => {
-    //     if (sendFormSucces) {
-    //         setValues({
-    //             name: '',
-    //             email: '',
-    //             massage: ''
-    //         })
-    //     }
-    // }, [sendFormSucces]);
+    /*useEffect(() => {
+        if (sendFormSucces) {
+            setValues({
+                name: '',
+                email: '',
+                massage: ''
+            })
+        }
+    }, [sendFormSucces]);*/
 
     return (
         <div className={styles.contactUs}>
@@ -166,7 +172,7 @@ export default function Contact() {
                                     onClick={handleSubmit}
                                     className={styles.buttonSubmit}
                                 >
-                                    Submit
+                                    Send
                                 </Button>
                             </div>
 
@@ -179,3 +185,10 @@ export default function Contact() {
         </div>
     );
 }
+
+const mapDispatchToProps = {
+    contactForm
+};
+
+export default connect(null, mapDispatchToProps)(Contact);
+
