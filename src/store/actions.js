@@ -176,3 +176,24 @@ export function contactForm(data) {
             });
     }
 }
+
+export function getUserInfo() {
+    return function (dispatch) {
+        dispatch({ type: actionTypes.PENDING });
+        request(`${apiHost}/user`)
+            .then((res) => {
+                if (!res) return;
+                dispatch({
+                    type: actionTypes.GET_USER_INFO,
+                    name: res.name,
+                    surname: res.surname
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: actionTypes.ERROR,
+                    error: err.message
+                });
+            });
+    }
+}

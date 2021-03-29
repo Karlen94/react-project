@@ -10,3 +10,4 @@ export const REGISTER_SUCCES = 'REGISTER_SUCCES';
 export const LOGIN_SUCCES = 'LOGIN_SUCCES';
 export const LOGOUT = 'LOGOUT';
 export const CONTACT = 'CONTACT';
+export const GET_USER_INFO = 'GET_USER_INFO';

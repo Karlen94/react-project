@@ -12,8 +12,8 @@ const deafultState = {
     successMessage: null,
     errorMessage: null,
     sendFormSucces: false,
-    name: '',
-    surname: '',
+    // name: '',
+    // surname: '',
     isAuthenticated: checkLoginStatus(),
     mailAdress: ''
 };
@@ -145,9 +145,7 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                isAuthenticated: true,
-                name: state.name,
-                surname: state.surname
+                isAuthenticated: true
             };
         }
         case actionTypes.LOGOUT: {
@@ -163,6 +161,14 @@ export default function reducer(state = deafultState, action) {
                 loading: false,
                 sendFormSucces: true,
                 successMessage: 'Form send!'
+            };
+        }
+        case actionTypes.GET_USER_INFO: {
+            return {
+                ...state,
+                loading: false,
+                name: action.name,
+                surname: action.surname
             };
         }
 
