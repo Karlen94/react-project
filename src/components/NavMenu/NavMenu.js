@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../helpersFunctions/auth';
 
 function NavMenu({ isAuthenticated, name, surname }) {
-    console.log(name, surname, );
+    console.log(name, surname);
     return (
         <Navbar bg="dark" variant="dark">
             <Nav className="mr-auto">
@@ -41,7 +41,7 @@ function NavMenu({ isAuthenticated, name, surname }) {
 
                 {
                     isAuthenticated ?
-                        <div>{name} {surname}</div> :
+                        <div className={styles.nameLine}>{name} {surname}</div> :
                         <div></div>
                 }
 

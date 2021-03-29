@@ -119,8 +119,12 @@ export function register(data) {
         dispatch({ type: actionTypes.PENDING });
         requestWithoutToken(`${apiHost}/user`, 'POST', data)
             .then(() => {
+                let name = data.name;
+                let surname = data.surname;
                 dispatch({
-                    type: actionTypes.REGISTER_SUCCES
+                    type: actionTypes.REGISTER_SUCCES,
+                    name,
+                    surname
                 });
                 history.push('/login');
             })
@@ -162,7 +166,7 @@ export function contactForm(data) {
                 dispatch({
                     type: actionTypes.CONTACT,
                 });
-                // history.push('/contact');
+                history.push('/contact');
             })
             .catch((err) => {
                 dispatch({

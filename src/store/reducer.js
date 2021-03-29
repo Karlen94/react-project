@@ -14,7 +14,8 @@ const deafultState = {
     sendFormSucces: false,
     name: '',
     surname: '',
-    isAuthenticated: checkLoginStatus()
+    isAuthenticated: checkLoginStatus(),
+    mailAdress: ''
 };
 
 export default function reducer(state = deafultState, action) {
@@ -132,21 +133,21 @@ export default function reducer(state = deafultState, action) {
             };
         }
         case actionTypes.REGISTER_SUCCES: {
-            
             return {
                 ...state,
                 loading: false,
+                name: action.name,
+                surname: action.surname,
                 successMessage: 'Congrats, you are a new user now!',
-                name: action.task.name,
-                surname: action.task.surname
             };
         }
         case actionTypes.LOGIN_SUCCES: {
-            console.log(state.name);
             return {
                 ...state,
                 loading: false,
-                isAuthenticated: true
+                isAuthenticated: true,
+                name: state.name,
+                surname: state.surname
             };
         }
         case actionTypes.LOGOUT: {

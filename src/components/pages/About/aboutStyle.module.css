@@ -1,0 +1,14 @@
+.aboutDiv{
+    text-align: center;
+    font-family: serif;
+    min-height: calc(100vh - 90px);
+
+}
+h1{
+    margin: 40px 0px;
+}
+p{
+    padding: 50px;
+    font-weight: 600;
+    line-height: 2.5;
+}

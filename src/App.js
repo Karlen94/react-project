@@ -8,6 +8,7 @@ import NotFound from './components/pages/NotFound/NotFound';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import NavMenu from './components/NavMenu/NavMenu';
+import Footer from './components/Footer/Footer';
 import SingleTask from './components/pages/SingleTask/SingleTask';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import Spinner from './components/Spinner/Spinner';
@@ -99,6 +100,7 @@ function App({ loading, successMessage, errorMessage }) {
 
           <Redirect to='/not-found' />
         </Switch>
+        <Footer />
       </Router>
       {loading && <Spinner />}
       <ToastContainer />
