@@ -100,7 +100,8 @@ class ToDo extends PureComponent {
 
     handleEdit = (editTask) => {
         this.setState({
-            editTask
+            editTask,
+            openEditModal: !this.state.openEditModal
         })
     }
 
@@ -258,7 +259,7 @@ class ToDo extends PureComponent {
                 {editTask &&
                     <EditTaskModal
                         data={editTask}
-                        onClose={() => this.handleEdit()}
+                        onClose={() => this.handleEdit(null)}
                     />}
             </div>
 

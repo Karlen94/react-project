@@ -91,8 +91,7 @@ function NavMenu({ isAuthenticated, getUserInfo, name, surname }) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.isAuthenticated,
-        name: state.name,
-        surname: state.surname
+        userInfo: state.userInfo,
     }
 };
 

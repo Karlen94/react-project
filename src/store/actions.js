@@ -94,8 +94,6 @@ export function deleteTasks(taskIds) {
 }
 
 export function editTask(data, from) {
-
-
     return function (dispatch) {
         dispatch({ type: actionTypes.PENDING })
         request(`${apiHost}/task/${data._id}`, 'PUT', data)
@@ -103,7 +101,8 @@ export function editTask(data, from) {
                 if (!editedTask) return;
                 dispatch({
                     type: actionTypes.EDIT_TASK,
-                    editedTask, from,
+                    editedTask, 
+                    from,
                     status: data.status
                 });
             })
@@ -184,9 +183,9 @@ export function getUserInfo() {
             .then((res) => {
                 if (!res) return;
                 dispatch({
-                    type: actionTypes.GET_USER_INFO,
-                    name: res.name,
-                    surname: res.surname
+                    type: actionTypes.GET_USER_INFO, 
+                   name:res.name,
+                   surname: res.surname
                 });
             })
             .catch((err) => {

@@ -12,8 +12,7 @@ const deafultState = {
     successMessage: null,
     errorMessage: null,
     sendFormSucces: false,
-    // name: '',
-    // surname: '',
+    userInfo: null,
     isAuthenticated: checkLoginStatus(),
     mailAdress: ''
 };
@@ -167,8 +166,7 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                name: action.name,
-                surname: action.surname
+                userInfo: action
             };
         }
 
