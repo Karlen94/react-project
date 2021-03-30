@@ -7,7 +7,7 @@ import { logout } from '../../helpersFunctions/auth';
 import { getUserInfo } from '../../store/actions';
 
 function NavMenu({ isAuthenticated, getUserInfo, name, surname }) {
-    console.log(name, surname);
+
     useEffect(() => {
         if (isAuthenticated) {
             getUserInfo();
@@ -49,8 +49,8 @@ function NavMenu({ isAuthenticated, getUserInfo, name, surname }) {
                 {
                     isAuthenticated ?
                         <div className={styles.nameLine}>
-                            {name} {surname}
-                            </div> :
+                            Welcome {name} {surname}!
+                        </div> :
                         <div></div>
                 }
 

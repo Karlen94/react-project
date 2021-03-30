@@ -8,14 +8,15 @@ function Footer() {
         <div className={styles.footer}>
 
             <div className={styles.linkedin}>
-                <SocialIcon url="https://linkedin.com/in/jaketrent" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Linkedin
+                <SocialIcon url="https://linkedin.com" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Linkedin
             </div>
             <div className={styles.gmail}>
-                <SocialIcon url="https://gmail.com/in/jaketrent" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Gmail
+                <SocialIcon url="https://gmail.com" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Gmail
             </div>
             <div className={styles.github}>
-                <SocialIcon url="https://github.com/in/jaketrent" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Github
+                <SocialIcon url="https://github.com" bgColor='#6a737c' style={{ height: 40, width: 40 }} /> :Github
             </div>
+            <br />
             <p className={styles.text}>Copyright © 2021 Facebook Inc.</p>
         </div>
     )

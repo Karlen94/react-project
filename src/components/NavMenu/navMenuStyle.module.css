@@ -41,7 +41,7 @@
 .logoutButton{
     position: absolute; 
     top: 0px; 
-    right: 0;
+    right: 0px;
     margin-right: 10px;
     background-color: rgb(97, 218, 251);
 }
@@ -49,8 +49,7 @@
     justify-content: center;
 }
 .nameLine{
-    color:cornsilk;
-    position: absolute;
-    /* margin-left: 100px; */
-    /* float: none; */
+    color: #00b8ba;
+    position: initial;
+    /* margin-left: 550px; */
 }
