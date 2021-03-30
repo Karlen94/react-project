@@ -1,0 +1,5 @@
+.singleTask{
+    min-height: calc(100vh - 100px);
+    justify-content: center;
+    margin-top: 50px;
+}
