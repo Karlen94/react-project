@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../helpersFunctions/auth';
 import { getUserInfo } from '../../store/actions';
 
-function NavMenu({ isAuthenticated, getUserInfo, name, surname }) {
+function NavMenu({ isAuthenticated, getUserInfo, userInfo }) {
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -45,13 +45,12 @@ function NavMenu({ isAuthenticated, getUserInfo, name, surname }) {
                 >
                     Contact us
                     </NavLink>
-
                 {
-                    isAuthenticated ?
-                        <div className={styles.nameLine}>
-                            Welcome {name} {surname}!
+                    isAuthenticated && userInfo ?
+                        <div className={styles.userInfoLine}>
+                           <h5> Welcome  {userInfo.name} {userInfo.surname}!</h5>
                         </div> :
-                        <div></div>
+                        null
                 }
 
                 {

@@ -101,13 +101,12 @@ export function editTask(data, from) {
                 if (!editedTask) return;
                 dispatch({
                     type: actionTypes.EDIT_TASK,
-                    editedTask, 
+                    editedTask,
                     from,
                     status: data.status
                 });
             })
             .catch((error) => {
-                console.log(error);
                 dispatch({ type: actionTypes.ERROR, error: error.message })
             })
     }
@@ -183,9 +182,8 @@ export function getUserInfo() {
             .then((res) => {
                 if (!res) return;
                 dispatch({
-                    type: actionTypes.GET_USER_INFO, 
-                   name:res.name,
-                   surname: res.surname
+                    type: actionTypes.GET_USER_INFO,
+                    userInfo: res
                 });
             })
             .catch((err) => {

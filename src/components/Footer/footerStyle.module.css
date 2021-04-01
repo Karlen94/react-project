@@ -29,3 +29,12 @@
 .text{
     margin-top: 50px;
 }
+.linkedin:hover{
+    opacity: 0.5;
+}
+.gmail:hover{
+    opacity: 0.5;
+}
+.github:hover{
+    opacity: 0.5;
+}

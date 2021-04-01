@@ -42,14 +42,13 @@
     position: absolute; 
     top: 0px; 
     right: 0px;
-    margin-right: 10px;
+    margin: 5px 5px;
     background-color: rgb(97, 218, 251);
 }
 .navLine{
     justify-content: center;
 }
-.nameLine{
-    color: #00b8ba;
+.userInfoLine{
+    color: #00b8ba!important;
     position: initial;
-    /* margin-left: 550px; */
 }

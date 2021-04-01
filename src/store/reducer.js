@@ -135,8 +135,6 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                name: action.name,
-                surname: action.surname,
                 successMessage: 'Congrats, you are a new user now!',
             };
         }
@@ -166,7 +164,7 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                userInfo: action
+                userInfo: action.userInfo
             };
         }
 
