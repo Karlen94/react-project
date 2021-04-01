@@ -106,7 +106,6 @@ class ToDo extends PureComponent {
 
 
     render() {
-        console.log(this.props);
         const { selectedTasks, showConfirm, openNewTaskModal, editTask } = this.state;
         const { tasks } = this.props;
 
