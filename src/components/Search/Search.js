@@ -180,7 +180,7 @@ function Search({ getTasks }) {
             </InputGroup>
 
             <Container>
-                <Row>
+                <Row className={styles.filtersDiv}>
                     {
                         dateOptions.map((option, index) => (
                             <Col
@@ -191,14 +191,14 @@ function Search({ getTasks }) {
                                 lg={3}
                                 xl={2}
                                 className={styles.filterLines}
-                                >
-                                
-                                    <span>{option.label}</span>
-                                    <DatePicker
-                                        selected={dates[option.value]}
-                                        onChange={(value) => handleChangeDate(value, option.value)}
-                                        className={styles.datePickerLine}
-                                    />
+                            >
+
+                                <span>{option.label}</span>
+                                <DatePicker
+                                    selected={dates[option.value]}
+                                    onChange={(value) => handleChangeDate(value, option.value)}
+                                    className={styles.datePickerLine}
+                                />
                             </Col>
 
                         ))

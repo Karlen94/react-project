@@ -117,6 +117,7 @@ class ToDo extends PureComponent {
                 md={4}
                 lg={3}
                 xl={2}
+                className={style.task}
             >
 
                 <Task

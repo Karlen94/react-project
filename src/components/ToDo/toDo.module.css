@@ -2,7 +2,11 @@
     text-align: center;
     color: #007bff;
 }
-
+@media (min-width: 1126px){
+    .task{
+       margin: 25px;
+    }
+  }
 .toDoDiv{
     min-height: calc(100vh - 50px);
 }
