@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import styles from './navMenuStyle.module.css';
 import { connect } from 'react-redux';
+import { logout } from '../../helpersFunctions/auth';
+import { getUserInfo } from '../../store/actions';
 
-function NavMenu({ isAuthenticated }) {
+function NavMenu({ isAuthenticated, getUserInfo, userInfo }) {
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getUserInfo();
+        }
+    }, [getUserInfo, isAuthenticated]);
 
     return (
         <Navbar bg="dark" variant="dark">
-            <Nav className="mr-auto">
+            <Nav className="mr-auto navLine">
                 {
                     isAuthenticated &&
                     <NavLink
@@ -38,8 +46,20 @@ function NavMenu({ isAuthenticated }) {
                     Contact us
                     </NavLink>
                 {
+                    isAuthenticated && userInfo ?
+                        <div className={styles.userInfoLine}>
+                           <h5> Welcome  {userInfo.name} {userInfo.surname}!</h5>
+                        </div> :
+                        null
+                }
+
+                {
                     isAuthenticated ?
-                        <Button>Log out</Button> :
+                        <Button
+                            className={styles.logoutButton}
+                            onClick={logout}
+                        >Log out
+                        </Button> :
                         <>
                             <NavLink
                                 to='/register'
@@ -69,8 +89,13 @@ function NavMenu({ isAuthenticated }) {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.isAuthenticated
+        isAuthenticated: state.isAuthenticated,
+        userInfo: state.userInfo,
     }
 };
 
-export default connect(mapStateToProps)(NavMenu);
+const mapDispatchToProps = {
+    getUserInfo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);

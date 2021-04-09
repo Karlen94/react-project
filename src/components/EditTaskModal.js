@@ -55,6 +55,10 @@ class EditTaskModal extends Component {
         }
 
         this.props.editTask(editedTask, this.props.from);
+        
+        if(this.props.from==='single'){
+            this.props.onClose()
+        }
 
     }
 

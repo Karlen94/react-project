@@ -34,7 +34,7 @@ class Task extends PureComponent {
 
         return (
             <Card className={`${styles.task} ${selected ? styles.selected : ""}`}>
-                <Card.Body>
+                <Card.Body className={styles.taskDiv}>
                     <input
                         type="checkbox"
                         onChange={this.handleChange}
@@ -101,9 +101,8 @@ class Task extends PureComponent {
                         disabled={disabled}
                     >
                         <FontAwesomeIcon icon={faTrashAlt} />
+
                     </Button>
-
-
                 </Card.Body>
 
             </Card>

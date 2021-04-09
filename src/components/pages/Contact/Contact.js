@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { contactForm } from '../../../store/actions';
 import styles from './contactStyle.module.css';
 
 const requiredErrorMessage = "Filed is required";
 
-export default function Contact() {
+function Contact(props) {
     const [values, setValues] = useState({
         name: '',
         email: '',
-        massage: ''
+        message: ''
     });
 
     const [errors, setErrors] = useState({
         name: null,
         email: null,
-        massage: null
+        message: null
     });
 
     const handleChange = ({ target: { name, value } }) => {
@@ -62,33 +64,35 @@ export default function Contact() {
 
         if (valuesExist && !errorsExist) {
 
-            fetch('http://localhost:3001/form', {
-                method: 'POST',
-                body: JSON.stringify(values),
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-                .then(async (response) => {
-                    const res = await response.json();
+            // fetch('http://localhost:3001/form', {
+            //     method: 'POST',
+            //     body: JSON.stringify(values),
+            //     headers: {
+            //         'Content-type': 'application/json'
+            //     }
+            // })
+            //     .then(async (response) => {
+            //         const res = await response.json();
 
-                    if (response.status >= 400 && response.status < 600) {
-                        if (res.error) {
-                            throw res.error;
-                        } else {
-                            throw new Error('Big error!');
-                        }
-                    }
+            //         if (response.status >= 400 && response.status < 600) {
+            //             if (res.error) {
+            //                 throw res.error;
+            //             } else {
+            //                 throw new Error('Big error!');
+            //             }
+            //         }
 
-                    setValues({
-                        name: '',
-                        email: '',
-                        massage: ''
-                    })
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+            //         setValues({
+            //             name: '',
+            //             email: '',
+            //             massage: ''
+            //         })
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     })
+
+            props.contactForm(values);
             return;
         }
 
@@ -96,10 +100,24 @@ export default function Contact() {
             setErrors({
                 name: requiredErrorMessage,
                 email: requiredErrorMessage,
-                massage: requiredErrorMessage
+                message: requiredErrorMessage
             })
         }
+
+
     }
+
+    const { sendFormSucces } = props;
+
+    useEffect(() => {
+        if (sendFormSucces) {
+            setValues({
+                name: '',
+                email: '',
+                message: ''
+            })
+        }
+    }, [sendFormSucces]);
 
     return (
         <div className={styles.contactUs}>
@@ -140,12 +158,12 @@ export default function Contact() {
                                     as="textarea"
                                     placeholder="Enter your massage"
                                     rows={5}
-                                    name="massage"
-                                    value={values.massage}
+                                    name="message"
+                                    value={values.message}
                                     onChange={handleChange}
                                 />
                                 <Form.Text className="text-danger">
-                                    {errors.massage}
+                                    {errors.message}
                                 </Form.Text>
                             </Form.Group>
                             <div className="text-center">
@@ -154,7 +172,7 @@ export default function Contact() {
                                     onClick={handleSubmit}
                                     className={styles.buttonSubmit}
                                 >
-                                    Submit
+                                    Send
                                 </Button>
                             </div>
 
@@ -167,3 +185,16 @@ export default function Contact() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        sendFormSucces: state.sendFormSucces
+    }
+};
+
+const mapDispatchToProps = {
+    contactForm
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);
+

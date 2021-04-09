@@ -11,7 +11,10 @@ const deafultState = {
     loading: false,
     successMessage: null,
     errorMessage: null,
-    isAuthenticated: checkLoginStatus()
+    sendFormSucces: false,
+    userInfo: null,
+    isAuthenticated: checkLoginStatus(),
+    mailAdress: ''
 };
 
 export default function reducer(state = deafultState, action) {
@@ -37,6 +40,7 @@ export default function reducer(state = deafultState, action) {
                 loading: true,
                 addTaskSuccess: false,
                 deleteTasksSuccess: false,
+                editTasksSuccess: false,
                 editTaskSuccess: false,
                 successMessage: null,
                 errorMessage: null
@@ -132,7 +136,7 @@ export default function reducer(state = deafultState, action) {
             return {
                 ...state,
                 loading: false,
-                successMessage: 'Congrats, you are a new user now!'
+                successMessage: 'Congrats, you are a new user now!',
             };
         }
         case actionTypes.LOGIN_SUCCES: {
@@ -142,6 +146,29 @@ export default function reducer(state = deafultState, action) {
                 isAuthenticated: true
             };
         }
+        case actionTypes.LOGOUT: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false
+            };
+        }
+        case actionTypes.CONTACT: {
+            return {
+                ...state,
+                loading: false,
+                sendFormSucces: true,
+                successMessage: 'Form send!'
+            };
+        }
+        case actionTypes.GET_USER_INFO: {
+            return {
+                ...state,
+                loading: false,
+                userInfo: action.userInfo
+            };
+        }
+
         default: return state;
     }
 

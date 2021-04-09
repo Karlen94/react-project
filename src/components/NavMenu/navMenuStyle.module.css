@@ -1,24 +1,54 @@
 .active{
-    color: rgb(250, 229, 45);
+    color: rgb(247, 246, 238);
     font-weight: 800;
 }
 
 .homeLink{
     margin: 0px 5px;
+    color: rgb(97, 218, 251);
 }
-
+.homeLink:hover{
+    color: rgb(97, 218, 251);
+}
 .aboutLink{
     margin: 0px 5px;
+    color: rgb(97, 218, 251);
 }
-
+.aboutLink:hover{
+    color: rgb(97, 218, 251);
+}
 .contactLink{
     margin: 0px 5px;
+    color: rgb(97, 218, 251);
 }
-
+.contactLink:hover{
+    color: rgb(97, 218, 251);
+}
 .loginLink{
     margin: 0px 5px;
+    color: rgb(97, 218, 251);
 }
-
+.loginLink:hover{
+    color: rgb(97, 218, 251);
+}
 .registerLink{
     margin: 0px 5px;
+    color: rgb(97, 218, 251);
+}
+.registerLink:hover{
+    color: rgb(97, 218, 251);
+}
+.logoutButton{
+    position: absolute; 
+    top: 0px; 
+    right: 0px;
+    margin: 5px 5px;
+    background-color: rgb(97, 218, 251);
+}
+.navLine{
+    justify-content: center;
+}
+.userInfoLine{
+    color: #00b8ba!important;
+    position: initial;
 }

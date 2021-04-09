@@ -4,13 +4,27 @@
     justify-content: center;
 }
 
-span{
-    float: left;
+.main{
+    color: #007bff;
 }
 
-.col{
-    float: left;
+.searchLine{
+    box-shadow: 5px 10px 15px #0f0d07;
 }
+
+.datePickerLine{
+    box-shadow: 10px 10px 15px #2b2514;
+    border-radius: 10px;
+}
+.filterLines{
+    color: #007bff;
+    margin: 0px 20px 30px;
+}
+.filtersDiv{
+    justify-content: center;
+    text-align: center;
+}
+
 
 
 

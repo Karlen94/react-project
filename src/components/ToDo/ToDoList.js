@@ -79,7 +79,7 @@ class ToDo extends PureComponent {
     }
 
     selectAll = () => {
-        const taskIds = this.state.tasks.map((task) => task._id);
+        const taskIds = this.props.tasks.map((task) => task._id);
 
         this.setState({
             selectedTasks: new Set(taskIds)
@@ -99,51 +99,13 @@ class ToDo extends PureComponent {
     }
 
     handleEdit = (editTask) => {
-        this.setState({
-            editTask
-        })
+        this.setState({ editTask })
     }
 
-    handleSaveTask = (editTask) => {
 
-        fetch(`http://localhost:3001/task/${editTask._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(editTask)
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error;
-                    } else {
-                        throw new Error('Big error!');
-                    }
-                }
-
-                const tasks = [...this.state.tasks];
-                const foundIndex = tasks.findIndex((task) => task._id === editTask._id);
-                tasks[foundIndex] = editTask;
-                this.setState({
-                    tasks,
-                    editTask: null
-                })
-
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-
-
-
-    }
 
 
     render() {
-
         const { selectedTasks, showConfirm, openNewTaskModal, editTask } = this.state;
         const { tasks } = this.props;
 
@@ -155,6 +117,7 @@ class ToDo extends PureComponent {
                 md={4}
                 lg={3}
                 xl={2}
+                className={style.task}
             >
 
                 <Task
@@ -258,7 +221,7 @@ class ToDo extends PureComponent {
                 {editTask &&
                     <EditTaskModal
                         data={editTask}
-                        onClose={() => this.handleEdit(null)}
+                        onClose={() => this.handleEdit()}
                     />}
             </div>
 

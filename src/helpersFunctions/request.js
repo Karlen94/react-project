@@ -1,9 +1,9 @@
 import { getToken } from './auth';
 
-export default function request(url, method = 'GET', body) {
-    const token = getToken();
-
-    const config = {
+export default async function request(url, method = 'GET', body) {
+    const token = await getToken();
+    if (!token) return Promise.resolve(null);
+    const config = { 
         method: method,
         headers: {
             'Content-type': 'application/json',

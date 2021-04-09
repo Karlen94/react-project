@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import styles from './singleTaskStyle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faCheck, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { formatDate } from '../../../helpersFunctions/utils';
@@ -68,7 +69,7 @@ class SingleTask extends Component {
         const { openEditModal } = this.state;
         const { task, editTask } = this.props;
         return (
-            <div className='mt-5'>
+            <div className={styles.singleTask}>
                 <Container>
                     <Row>
                         <Col xs={12}>
